@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/myDark"
+    tools:context=".Accept">
+
+    <include layout="@layout/toolbar_accept"/>
+
+
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:textSize="22dp"
+        android:fontFamily="@font/balooda_regular"
+        android:text="You Received an Invitation From"/>
+
+    <TextView
+        android:id="@+id/accept_nameTextView"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="@color/myOrange"
+        android:textSize="25dp"
+        android:fontFamily="@font/balooda_semibold"
+        android:text="Prashant Kumar"/>
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="By accepting this request you agree to share your contact with each other"
+        android:textColor="#606060"
+        android:fontFamily="@font/balooda_regular"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/accept_acceptButton"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/myDarkLight"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        android:clickable="true">
+
+        <TextView
+            android:paddingTop="7dp"
+            android:paddingBottom="4dp"
+            android:paddingHorizontal="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCEPT"
+            android:textColor="@color/myOrange"
+            android:fontFamily="@font/balooda_semibold"
+            android:textSize="19dp"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+</LinearLayout>

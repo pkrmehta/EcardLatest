@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#AA0000</color>
+    <color name="colorPrimaryDark">#8C0707</color>
+    <color name="colorAccent">#FFE284</color>
+    <color name="myDark">#222831</color>
+    <color name="myDarkLight">#393E46</color>
+    <color name="toolbarBack">#171D25</color>
+    <color name="myOrange">#FFE284</color>
+    <color name="colorOnBackground">#C5C5C5</color>
+    <color name="colorOnBackgroundSDark">#8E8E8E</color>
+</resources>

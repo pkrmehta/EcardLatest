@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myDark"
+    android:orientation="vertical"
+    tools:context=".Congrats">
+
+    <include
+        layout="@layout/toolbar_congrats"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="15dp"
+        app:cardCornerRadius="25dp"
+        android:layout_marginHorizontal="45dp"
+        app:cardBackgroundColor="@color/myDarkLight"
+        app:cardUseCompatPadding="true"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Congratulations!!"
+                android:fontFamily="@font/balooda_semibold"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You just shared your contact with"
+                android:fontFamily="@font/balooda_regular"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/congrats_nameTextView"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Devashish Thakur"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="50dp"/>
+
+        </LinearLayout>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/congrats_myContactsButton"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/myDarkLight"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        android:clickable="true">
+
+        <TextView
+            android:paddingTop="10dp"
+            android:paddingBottom="7dp"
+            android:paddingHorizontal="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Contacts"
+            android:textColor="@color/myOrange"
+            android:fontFamily="@font/balooda_semibold"
+            android:textSize="19dp"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</LinearLayout>
