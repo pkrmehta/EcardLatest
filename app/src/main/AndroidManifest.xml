@@ -15,6 +15,7 @@
         <activity android:name=".Login" />
         <activity android:name=".Notification" />
         <activity android:name=".Accept" />
+        <activity android:name=".CapturedActivity" />
         <activity android:name=".AddContact" />
         <activity android:name=".MyContacts" />
         <activity android:name=".MainActivity">

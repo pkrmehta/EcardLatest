@@ -1,19 +1,21 @@
 package com.pkdev.e_card;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private NavigationView navigationView;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +57,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
-
-
-
-
+        findViewById(R.id.main_addContactButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddContact.class));
+            }
+        });
 
         findViewById(R.id.main_phoneButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,5 +92,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent startIntent = new Intent(MainActivity.this, Login.class);
+            startActivity(startIntent);
+            finish();
+        }
     }
 }
