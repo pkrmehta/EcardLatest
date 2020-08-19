@@ -19,6 +19,7 @@
         android:id="@+id/popupWebsite_websiteTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         app:helperTextTextAppearance="@color/colorAccent"
         android:textColorHint="@color/colorOnBackground"
         android:layout_marginHorizontal="70dp">

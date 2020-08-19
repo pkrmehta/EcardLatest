@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/myDark"
+    tools:context=".EditProfile">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/temp_pic"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="20dp"
+                android:id="@+id/editProfile_firstNameTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent"
+                android:textColorHint="@color/colorOnBackground"
+                android:layout_marginHorizontal="40dp">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_firstnameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="First Name"
+                    app:boxBackgroundColor="@color/myDark"
+                    android:textColorHint="@color/colorOnBackgroundSDark"
+                    android:textColor="@color/myOrange"
+                    android:padding="15dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editProfile_lastNameTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent"
+                android:textColorHint="@color/colorOnBackground"
+                android:layout_marginHorizontal="40dp">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_lastNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    app:boxBackgroundColor="@color/myDark"
+                    android:textColorHint="@color/colorOnBackgroundSDark"
+                    android:textColor="@color/myOrange"
+                    android:padding="15dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editProfile_descriptionTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent"
+                android:textColorHint="@color/colorOnBackground"
+                android:layout_marginHorizontal="40dp">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_decriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    app:boxBackgroundColor="@color/myDark"
+                    android:textColorHint="@color/colorOnBackgroundSDark"
+                    android:textColor="@color/myOrange"
+                    android:padding="15dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:layout_marginHorizontal="40dp"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/editProfile_phoneAddButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/myinfo_layoutback"
+                        android:elevation="10dp"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:paddingHorizontal="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_marginTop="-2dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:fontFamily="@font/balooda_regular"
+                                android:text="Add Phone"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/editProfile_phoneAddRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:layout_marginHorizontal="40dp"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/editProfile_websiteAddButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/myinfo_layoutback"
+                        android:elevation="10dp"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:paddingHorizontal="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_marginTop="-2dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:fontFamily="@font/balooda_regular"
+                                android:text="Add Website"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/editprofile_websiteAddRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:layout_marginHorizontal="40dp"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/editProfile_emailAddButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/myinfo_layoutback"
+                        android:elevation="10dp"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:paddingHorizontal="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_marginTop="-2dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:fontFamily="@font/balooda_regular"
+                                android:text="Add Email"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/editprofile_emailAddRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:layout_marginHorizontal="40dp"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/editProfile_addressAddButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/myinfo_layoutback"
+                        android:elevation="10dp"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:paddingHorizontal="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_marginTop="-2dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:fontFamily="@font/balooda_regular"
+                                android:text="Add Address"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/editprofile_addressAddRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:layout_marginHorizontal="40dp"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/editProfile_workAddButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/myinfo_layoutback"
+                        android:elevation="10dp"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:paddingHorizontal="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_marginTop="-2dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:fontFamily="@font/balooda_regular"
+                                android:text="Add Work Experience"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/editprofile_workAddRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

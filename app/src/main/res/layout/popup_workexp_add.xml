@@ -19,6 +19,7 @@
         android:id="@+id/popupWork_employerTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         app:helperTextTextAppearance="@color/colorAccent"
         android:textColorHint="@color/colorOnBackground"
         android:layout_marginHorizontal="70dp">
@@ -41,6 +42,7 @@
         android:id="@+id/popupWork_profileTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         app:helperTextTextAppearance="@color/colorAccent"
         android:textColorHint="@color/colorOnBackground"
         android:layout_marginHorizontal="70dp">
@@ -71,6 +73,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
             app:helperTextTextAppearance="@color/colorAccent"
             android:textColorHint="@color/colorOnBackground">
 
@@ -94,6 +97,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
             android:layout_marginHorizontal="20dp"
             app:helperTextTextAppearance="@color/colorAccent"
             android:textColorHint="@color/colorOnBackground">
