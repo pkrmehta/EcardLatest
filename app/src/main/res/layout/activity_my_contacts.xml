@@ -9,18 +9,53 @@
     android:orientation="vertical"
     tools:context=".MyContacts">
 
-    <include layout="@layout/toolbar_my_contacts"/>
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar_my_contacts" />
 
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
-        android:id="@+id/myContacts_recyclerView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="20dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            >
+            <ImageButton
+                android:id="@+id/mycontact_back"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back"/>
+            <TextView
+                android:id="@+id/mycontact_head"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Contacts"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/opensans_semibold"
+                />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_marginTop="-3dp"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/toolbarBack"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbarStyle="outsideOverlay">
-
-    </view>
-
-
-
-
+        android:id="@+id/myContact_RecyclerView"/>
 
 </LinearLayout>

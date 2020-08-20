@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser;
+
+    GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +56,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         //Navigation drawer aboutUs button
-        header.findViewById(R.id.nav_aboutUs).setOnClickListener(new View.OnClickListener() {
+        header.findViewById(R.id.nav_logOut).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Just for test", Toast.LENGTH_SHORT).show();
-            }
+                FirebaseAuth.getInstance().signOut();
+                createRequest();
+                mGoogleSignInClient.signOut();
+                startActivity(new Intent(MainActivity.this, Login.class));
+                          }
         });
 
         findViewById(R.id.main_addContactButton).setOnClickListener(new View.OnClickListener() {
@@ -84,12 +93,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()){
-            case R.id.bnav_myinfoedit:
-                startActivity(new Intent(MainActivity.this, ContactDetail.class));
+            case R.id.bnav_mycontacts:
+                startActivity(new Intent(MainActivity.this, MyContacts.class));
                 break;
         }
-
-
 
         return true;
     }
@@ -104,5 +111,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             startActivity(startIntent);
             finish();
         }
+    }
+
+    private void createRequest() {
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 }

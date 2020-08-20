@@ -178,7 +178,6 @@
 
 
             <com.google.android.material.card.MaterialCardView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -201,6 +200,7 @@
                         android:padding="10dp">
 
                         <ImageButton
+                            android:id="@+id/expandPhone"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"
@@ -239,7 +239,6 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contactDetail_phoneListRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -275,6 +274,7 @@
                         android:padding="10dp">
 
                         <ImageButton
+                            android:id="@+id/expandAddress"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"
@@ -306,14 +306,12 @@
                                 android:text="Address"
                                 android:textColor="@android:color/white"
                                 android:textSize="18dp" />
-
-
                         </LinearLayout>
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contactDetail_addressListRecyclerView"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -348,6 +346,7 @@
                         android:padding="10dp">
 
                         <ImageButton
+                            android:id="@+id/expandWebsite"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"
@@ -386,7 +385,6 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contactDetail_websiteListRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -422,6 +420,7 @@
                         android:padding="10dp">
 
                         <ImageButton
+                            android:id="@+id/expandEmail"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"
@@ -453,14 +452,11 @@
                                 android:text="Email"
                                 android:textColor="@android:color/white"
                                 android:textSize="18dp" />
-
-
                         </LinearLayout>
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contactDetail_emailListRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -495,6 +491,7 @@
                         android:padding="10dp">
 
                         <ImageButton
+                            android:id="@+id/expandWork"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"

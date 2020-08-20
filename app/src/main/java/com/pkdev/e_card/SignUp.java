@@ -104,7 +104,6 @@ public class SignUp extends AppCompatActivity {
                             //Making a hashmap
                             HashMap<String, String> userMap = new HashMap<>();
                             userMap.put("name", nameField.getText().toString());
-                            userMap.put("email", usernameField.getText().toString());
                             userMap.put("userid", uid);
                             userMap.put("image","default");
                             userMap.put("title","Hey There! I am using ECard");
@@ -173,7 +172,6 @@ public class SignUp extends AppCompatActivity {
 
                             HashMap<String, String> userMap = new HashMap<>();
                             userMap.put("name", acct.getDisplayName());
-                            userMap.put("email", acct.getEmail());
                             userMap.put("userid", user.getUid());
                             userMap.put("image","default");
                             userMap.put("title","Hey There! I am using ECard");

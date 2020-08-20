@@ -49,7 +49,6 @@
         android:fontFamily="@font/balooda_regular"/>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/accept_acceptButton"
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
@@ -61,6 +60,7 @@
         android:clickable="true">
 
         <TextView
+            android:id="@+id/accept_acceptButton"
             android:paddingTop="7dp"
             android:paddingBottom="4dp"
             android:paddingHorizontal="40dp"
