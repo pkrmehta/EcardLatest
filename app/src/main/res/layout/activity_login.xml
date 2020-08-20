@@ -91,7 +91,6 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/login_loginButton"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
@@ -103,6 +102,7 @@
             android:clickable="true">
 
             <TextView
+                android:id="@+id/login_loginButton"
                 android:paddingTop="7dp"
                 android:paddingBottom="4dp"
                 android:paddingHorizontal="40dp"

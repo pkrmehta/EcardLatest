@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "404852483424",
+    "firebase_url": "https://e-card-6028f.firebaseio.com",
+    "project_id": "e-card-6028f",
+    "storage_bucket": "e-card-6028f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404852483424:android:e7edab7776ac5c98686a05",
+        "android_client_info": {
+          "package_name": "com.pkdev.e_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404852483424-be74d3t5qaoahki15nqq9jb6dmr1k5jp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pkdev.e_card",
+            "certificate_hash": "65f001369bf1aae03ca03895d617c8575a829520"
+          }
+        },
+        {
+          "client_id": "404852483424-ipqtlliatghpv8dhl8h1jibim6ahngii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_ZKkkCh3UChanQbOOwog9ReqqViis6FQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404852483424-ipqtlliatghpv8dhl8h1jibim6ahngii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

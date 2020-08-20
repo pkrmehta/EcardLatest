@@ -28,12 +28,13 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/listNotification_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/balooda_semibold"
             android:text="Contact Successfully Shared"
             android:textColor="@android:color/white"
-            android:textSize="18dp"
-            android:fontFamily="@font/balooda_semibold"/>
+            android:textSize="18dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,13 +50,13 @@
                 android:fontFamily="@font/balooda_regular"/>
 
             <TextView
+                android:id="@+id/listNotification_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="just Shared you contact"
-                android:textColor="@android:color/white"
                 android:layout_marginLeft="5dp"
                 android:fontFamily="@font/balooda_regular"
-                />
+                android:text="just Shared you contact"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
