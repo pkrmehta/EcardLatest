@@ -4,84 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/myDark"
+    android:orientation="vertical"
     tools:context=".EditProfile">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay">
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical">
 
         <LinearLayout
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/temp_pic"
-                />
+                android:src="@drawable/temp_pic" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="20dp"
                 android:id="@+id/editProfile_firstNameTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
-                app:helperTextTextAppearance="@color/colorAccent"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="20dp"
                 android:textColorHint="@color/colorOnBackground"
-                android:layout_marginHorizontal="40dp">
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editProfile_firstnameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name"
-                    app:boxBackgroundColor="@color/myDark"
-                    android:textColorHint="@color/colorOnBackgroundSDark"
-                    android:textColor="@color/myOrange"
-                    android:padding="15dp"
+                    android:focusable="auto"
+                    android:hint="Name"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:padding="15dp"
+                    android:textColor="@color/myOrange"
+                    android:textColorHint="@color/colorOnBackgroundSDark"
+                    app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editProfile_lastNameTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
-                app:helperTextTextAppearance="@color/colorAccent"
+                android:layout_marginHorizontal="40dp"
                 android:textColorHint="@color/colorOnBackground"
-                android:layout_marginHorizontal="40dp">
-
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editProfile_lastNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Last Name"
-                    app:boxBackgroundColor="@color/myDark"
-                    android:textColorHint="@color/colorOnBackgroundSDark"
-                    android:textColor="@color/myOrange"
-                    android:padding="15dp"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editProfile_descriptionTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
-                app:helperTextTextAppearance="@color/colorAccent"
+                android:layout_marginHorizontal="40dp"
                 android:textColorHint="@color/colorOnBackground"
-                android:layout_marginHorizontal="40dp">
+                app:boxBackgroundMode="none"
+                app:helperTextTextAppearance="@color/colorAccent">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -89,21 +75,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Description"
-                    app:boxBackgroundColor="@color/myDark"
-                    android:textColorHint="@color/colorOnBackgroundSDark"
-                    android:textColor="@color/myOrange"
-                    android:padding="15dp"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:padding="15dp"
+                    android:textColor="@color/myOrange"
+                    android:textColorHint="@color/colorOnBackgroundSDark"
+                    app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
-                android:layout_marginHorizontal="40dp"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="15dp">
 
@@ -113,7 +99,6 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/editProfile_phoneAddButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -122,18 +107,30 @@
                         android:padding="10dp">
 
 
+                        <ImageButton
+                            android:id="@+id/editProfile_expandPhone"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/down" />
+
                         <LinearLayout
-                            android:paddingHorizontal="20dp"
+                            android:id="@+id/editProfile_phoneAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp">
 
                             <ImageButton
-                                android:layout_marginTop="-2dp"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
+                                android:layout_marginTop="-2dp"
                                 android:background="@android:color/transparent"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add" />
@@ -153,11 +150,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/editProfile_phoneAddRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -168,9 +165,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
-                android:layout_marginHorizontal="40dp"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="15dp">
 
@@ -180,7 +177,6 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/editProfile_websiteAddButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -189,18 +185,30 @@
                         android:padding="10dp">
 
 
+                        <ImageButton
+                            android:id="@+id/editProfile_expandWebsite"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/down" />
+
                         <LinearLayout
-                            android:paddingHorizontal="20dp"
+                            android:id="@+id/editProfile_websiteAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp">
 
                             <ImageButton
-                                android:layout_marginTop="-2dp"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
+                                android:layout_marginTop="-2dp"
                                 android:background="@android:color/transparent"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add" />
@@ -220,11 +228,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/editprofile_websiteAddRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -235,9 +243,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
-                android:layout_marginHorizontal="40dp"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="15dp">
 
@@ -247,7 +255,6 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/editProfile_emailAddButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -256,18 +263,30 @@
                         android:padding="10dp">
 
 
+                        <ImageButton
+                            android:id="@+id/editProfile_expandEmail"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/down" />
+
                         <LinearLayout
-                            android:paddingHorizontal="20dp"
+                            android:id="@+id/editProfile_emailAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp">
 
                             <ImageButton
-                                android:layout_marginTop="-2dp"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
+                                android:layout_marginTop="-2dp"
                                 android:background="@android:color/transparent"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add" />
@@ -287,11 +306,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/editprofile_emailAddRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -302,9 +321,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
-                android:layout_marginHorizontal="40dp"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="15dp">
 
@@ -314,7 +333,6 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/editProfile_addressAddButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -322,19 +340,30 @@
                         android:elevation="10dp"
                         android:padding="10dp">
 
+                        <ImageButton
+                            android:id="@+id/editProfile_expandAddress"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/down" />
 
                         <LinearLayout
-                            android:paddingHorizontal="20dp"
+                            android:id="@+id/editProfile_addressAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp">
 
                             <ImageButton
-                                android:layout_marginTop="-2dp"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
+                                android:layout_marginTop="-2dp"
                                 android:background="@android:color/transparent"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add" />
@@ -354,11 +383,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/editprofile_addressAddRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -369,9 +398,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
-                android:layout_marginHorizontal="40dp"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="15dp">
 
@@ -381,7 +410,6 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/editProfile_workAddButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -389,19 +417,30 @@
                         android:elevation="10dp"
                         android:padding="10dp">
 
+                        <ImageButton
+                            android:id="@+id/editProfile_expandWork"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/down" />
 
                         <LinearLayout
-                            android:paddingHorizontal="20dp"
+                            android:id="@+id/editProfile_workAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp">
 
                             <ImageButton
-                                android:layout_marginTop="-2dp"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
+                                android:layout_marginTop="-2dp"
                                 android:background="@android:color/transparent"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add" />
@@ -421,11 +460,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/editprofile_workAddRecyclerView"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -433,24 +472,10 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-
-
-
         </LinearLayout>
 
 
-
     </ScrollView>
-
-
-
-
-
-
-
-
-
-
 
 
 </LinearLayout>

@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                           }
         });
 
+        findViewById(R.id.main_basicInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, EditProfile.class));
+
+            }
+        });
         findViewById(R.id.main_addContactButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

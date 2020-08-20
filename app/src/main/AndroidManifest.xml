@@ -12,13 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".EditProfile"/>
         <activity android:name=".ContactDetail" />
         <activity android:name=".Congrats" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".Notification" />
-        <activity android:name=".Accept" />
+        <activity android:name=".Accept">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="pkdev" android:scheme="https" />
+                <data android:host="pkdev" android:scheme="http" />
+            </intent-filter>
+        </activity>
         <activity android:name=".CapturedActivity" />
         <activity android:name=".AddContact" />
         <activity android:name=".MyContacts" />

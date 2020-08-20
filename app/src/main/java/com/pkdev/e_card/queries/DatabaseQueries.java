@@ -177,4 +177,32 @@ public class DatabaseQueries {
 
         }
     }
+
+    public void addWebsite(final Website website) {
+        if (workList.size() < 2) {
+            document.collection("website").add(website).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    websiteList.add(website);
+                    websiteAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+
+        }
+    }
+
+    public void addPhone(final Phone phone) {
+        if (workList.size() < 2) {
+            document.collection("phone").add(phone).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    phoneList.add(phone);
+                    phoneAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+
+        }
+    }
 }

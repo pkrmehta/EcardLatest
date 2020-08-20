@@ -39,12 +39,8 @@ public class ContactDetail extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
 
     RecyclerView mPhoneList;
-    List<Phone> phoneList;
-    PhoneAdapter phoneAdapter;
 
     RecyclerView mAddressList;
-    List<Address> addressList;
-    AddressAdapter addressAdapter;
 
     RecyclerView mEmailList;
 

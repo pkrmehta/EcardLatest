@@ -55,7 +55,7 @@ public class AddContact extends AppCompatActivity {
             public void onClick(View view) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://ecardapp.page.link/?link=https://ecardapp/"+currentUser.getUid()+"&apn=com.pkdev.ecard&efr=1");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://pkdev.page.link/?link=https://pkdev/"+currentUser.getUid()+"&apn=com.pkdev.e_card&st=Share+Request&sd=Click+on+this+link+to+accept+this+share+request");
                 sendIntent.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);
