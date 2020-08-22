@@ -42,6 +42,7 @@ import com.pkdev.e_card.model.Email;
 import com.pkdev.e_card.model.Phone;
 import com.pkdev.e_card.model.Website;
 import com.pkdev.e_card.model.Work;
+import com.pkdev.e_card.queries.DatabaseQueries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class MyContacts extends AppCompatActivity {
     public boolean isActionMode = false;
     public int pos = -1;
     public static final int PERMISSION_REQUEST_READ = 1;
+    DatabaseQueries databaseQueries = new DatabaseQueries();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,72 +223,83 @@ public class MyContacts extends AppCompatActivity {
         }
     }
 
-
-    private void addContact(String name, List<Email> emailList, List<Website> websiteList, List<Address> addressList, List<Work> workList, List<Phone> phoneList) {
-        ArrayList<ContentProviderOperation> op_list = new ArrayList<ContentProviderOperation>();
-        op_list.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+    void addContactName(ArrayList<ContentProviderOperation> list, String name) {
+        list.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
                 .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
                 .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
                 .build());
-
-        // First and Last Name
-        op_list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+        list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
                 .build());
+    }
 
-        //Phone
-        for (Phone phone : phoneList) {
-            op_list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone.getNumber())
-                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
-                    .build());
-        }
-        //Organization
-        for (Work work : workList) {
-            if (work.getEnd().equals("Present")) {
-                op_list.add(ContentProviderOperation
-                        .newInsert(ContactsContract.Data.CONTENT_URI)
-                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                        .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, work.getCompany())
-                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                        .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, work.getPosition())
-                        .build());
-            }
-        }
-        //Email
-        for (Email email : emailList) {
-            op_list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, email.getEmail())
-                    .withValue(ContactsContract.CommonDataKinds.Email.TYPE, email.getType().equals("work") ? ContactsContract.CommonDataKinds.Email.TYPE_WORK : email.getType().equals("home") ? ContactsContract.CommonDataKinds.Email.TYPE_HOME : ContactsContract.CommonDataKinds.Email.TYPE_OTHER)
-                    .build());
-        }
-        //Website
-        for (Website website : websiteList) {
-            op_list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, website.getWebsite())
-                    .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Website.URL)
-                    .build());
-        }
-        //Address
-        for (Address address : addressList) {
-            op_list.add(ContentProviderOperation
+    void addContactPhone(ArrayList<ContentProviderOperation> list, Phone phone) {
+        list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone.getNumber())
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build());
+    }
+
+    void addContactEmail(ArrayList<ContentProviderOperation> list, Email email) {
+        list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Email.DATA, email.getEmail())
+                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, email.getType().equals("work") ? ContactsContract.CommonDataKinds.Email.TYPE_WORK : email.getType().equals("home") ? ContactsContract.CommonDataKinds.Email.TYPE_HOME : ContactsContract.CommonDataKinds.Email.TYPE_OTHER)
+                .build());
+    }
+
+    void addContactWork(ArrayList<ContentProviderOperation> list, Work work) {
+        if (work.getEnd().equals("Present")) {
+            list.add(ContentProviderOperation
                     .newInsert(ContactsContract.Data.CONTENT_URI)
                     .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, address.getAddress())
-                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.StructuredPostal.TYPE, address.getType().equals("work") ? ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK : address.getType().equals("home") ? ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME : ContactsContract.CommonDataKinds.StructuredPostal.TYPE_OTHER)
+                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, work.getCompany())
+                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, work.getPosition())
                     .build());
         }
+    }
+
+    void addContactWebsite(ArrayList<ContentProviderOperation> list, Website website) {
+        list.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Email.DATA, website.getWebsite())
+                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Website.URL)
+                .build());
+    }
+
+    void addContactAddress(ArrayList<ContentProviderOperation> list, Address address) {
+        list.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, address.getAddress())
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.TYPE, address.getType().equals("work") ? ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK : address.getType().equals("home") ? ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME : ContactsContract.CommonDataKinds.StructuredPostal.TYPE_OTHER)
+                .build());
+    }
+
+    private void addContact(String name, List<Email> emailList, List<Website> websiteList, List<Address> addressList, List<Work> workList, List<Phone> phoneList) {
+        ArrayList<ContentProviderOperation> op_list = new ArrayList<ContentProviderOperation>();
+        //Name
+        addContactName(op_list, name);
+        //Phone
+        for (Phone phone : phoneList) addContactPhone(op_list, phone);
+        //Organization
+        for (Work work : workList) addContactWork(op_list, work);
+        //Email
+        for (Email email : emailList) addContactEmail(op_list, email);
+        //Website
+        for (Website website : websiteList) addContactWebsite(op_list, website);
+        //Address
+        for (Address address : addressList) addContactAddress(op_list, address);
         try {
             ContentProviderResult[] results = getContentResolver().applyBatch(ContactsContract.AUTHORITY, op_list);
             Toast.makeText(this, "Contacts Successfully Saved, Rate us 5*", Toast.LENGTH_LONG).show();

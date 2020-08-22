@@ -1,17 +1,24 @@
 package com.pkdev.e_card;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
@@ -53,12 +60,7 @@ public class AddContact extends AppCompatActivity {
         findViewById(R.id.addContact_sendDirectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://pkdev.page.link/?link=https://pkdev/"+currentUser.getUid()+"&apn=com.pkdev.e_card&st=Share+Request&sd=Click+on+this+link+to+accept+this+share+request");
-                sendIntent.setType("text/plain");
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
+                sendFirebaseDynamicLnk();
             }
         });
     }
@@ -104,5 +106,27 @@ public class AddContact extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void sendFirebaseDynamicLnk() {
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLongLink(Uri.parse("https://pkdev.page.link/?link=https://pkdev/"+currentUser.getUid()+"&apn=com.pkdev.e_card&st=Share+Request&sd=Click+on+this+link+to+accept+this+share+request"))
+                .buildShortDynamicLink()
+                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            Log.i("CHEOK", "success");
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, task.getResult().getShortLink().toString());
+                            sendIntent.setType("text/plain");
+                            Intent shareIntent = Intent.createChooser(sendIntent, null);
+                            startActivity(shareIntent);
+                        } else {
+
+                        }
+                    }
+                });
     }
 }

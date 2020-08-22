@@ -35,17 +35,10 @@ import java.util.List;
 
 public class ContactDetail extends AppCompatActivity {
 
-
-    GoogleSignInClient mGoogleSignInClient;
-
     RecyclerView mPhoneList;
-
     RecyclerView mAddressList;
-
     RecyclerView mEmailList;
-
     RecyclerView mWebsiteList;
-
     RecyclerView mWorkList;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -57,12 +50,21 @@ public class ContactDetail extends AppCompatActivity {
 
     DatabaseQueries databaseQueries = new DatabaseQueries();
 
+    String EMAIL = "email", PHONE = "phone", WEBSITE = "website", JOB = "job", ADDRESS = "address";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
 
         user_id = getIntent().getStringExtra("USER_ID").toString();
+
+        mEmailList = (RecyclerView) findViewById(R.id.contactDetail_emailListRecyclerView);
+        mAddressList = (RecyclerView) findViewById(R.id.contactDetail_addressListRecyclerView);
+        mWorkList = (RecyclerView) findViewById(R.id.contactDetail_workexpListRecyclerView);
+        mWebsiteList = (RecyclerView) findViewById(R.id.contactDetail_websiteListRecyclerView);
+        mPhoneList = (RecyclerView) findViewById(R.id.contactDetail_phoneListRecyclerView);
+
 
         pd = new ProgressDialog(ContactDetail.this);
         pd.setCanceledOnTouchOutside(false);
@@ -81,63 +83,37 @@ public class ContactDetail extends AppCompatActivity {
                 title.setText(task.getResult().get("title").toString());
             }
         });
-
-        populateAddress();
-        populatePhone();
-        populateWebsite();
-        populateEmail();
-        populateWork();
+        pd.show();
+        addDataToRecyclerVIew(mWebsiteList, WEBSITE);
+        addDataToRecyclerVIew(mPhoneList, PHONE);
+        addDataToRecyclerVIew(mAddressList, ADDRESS);
+        addDataToRecyclerVIew(mEmailList, EMAIL);
+        addDataToRecyclerVIew(mWorkList, JOB);
     }
 
-    private void populateWork() {
-        mWorkList = (RecyclerView) findViewById(R.id.contactDetail_workexpListRecyclerView);
-        mWorkList.setHasFixedSize(true);
-        mWorkList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getWorkList(this, mWorkList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.expandWork), mWorkList);
-    }
+    private void addDataToRecyclerVIew(RecyclerView recyclerView, String field) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
 
-    private void populateEmail() {
-        mEmailList = (RecyclerView) findViewById(R.id.contactDetail_emailListRecyclerView);
-        mEmailList.setHasFixedSize(true);
-        mEmailList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getEmailList(this, mEmailList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.expandEmail), mEmailList);
-    }
-
-    private void createRequest() {
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
-
-    private void populateWebsite() {
-        mWebsiteList = (RecyclerView) findViewById(R.id.contactDetail_websiteListRecyclerView);
-        mWebsiteList.setHasFixedSize(true);
-        mWebsiteList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getWebsiteList(this, mWebsiteList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.expandWebsite), mWebsiteList);
-    }
-
-    private void populateAddress() {
-        mAddressList = (RecyclerView) findViewById(R.id.contactDetail_addressListRecyclerView);
-        mAddressList.setHasFixedSize(true);
-        mAddressList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getAddressList(this, mAddressList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.expandAddress), mAddressList);
-    }
-
-    private void populatePhone() {
-        mPhoneList = (RecyclerView) findViewById(R.id.contactDetail_phoneListRecyclerView);
-        mPhoneList.setHasFixedSize(true);
-        mPhoneList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getPhoneList(this, mPhoneList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.expandPhone), mPhoneList);
+        if (field.equals(EMAIL)) {
+            databaseQueries.getEmailList(this, mEmailList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.expandEmail), mEmailList);
+        } else if (field.equals(WEBSITE)) {
+            databaseQueries.getWebsiteList(this, mWebsiteList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.expandWebsite), mWebsiteList);
+        }
+        else if (field.equals(JOB)) {
+            databaseQueries.getWorkList(this, mWorkList, user_id, pd);
+            setUpExpandButton((ImageButton) findViewById(R.id.expandWork), mWorkList);
+        }
+        else if (field.equals(ADDRESS)) {
+            databaseQueries.getAddressList(this, mAddressList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.expandAddress), mAddressList);
+        }
+        else if (field.equals(PHONE)) {
+            databaseQueries.getPhoneList(this, mPhoneList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.expandPhone), mPhoneList);
+        }
     }
 
     private void setUpExpandButton(ImageButton expandButton, final RecyclerView recyclerView) {
