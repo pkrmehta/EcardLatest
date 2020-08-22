@@ -10,14 +10,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.pkdev.e_card.model.Address;
 import com.pkdev.e_card.model.Email;
 import com.pkdev.e_card.model.Phone;
@@ -34,33 +30,24 @@ import com.pkdev.e_card.model.Website;
 import com.pkdev.e_card.model.Work;
 import com.pkdev.e_card.queries.DatabaseQueries;
 
-import java.util.ArrayList;
-
 public class EditProfile extends AppCompatActivity {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     public static ProgressDialog pd;
-
     EditText name, title;
+    LinearLayout logoutButton, addEmail, addWebsite, addWork, addAddress, addPhone;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-    LinearLayout logoutButton,addEmail,addWebsite,addWork,addAddress,addPhone;
-
     DatabaseQueries databaseQueries = new DatabaseQueries();
-
     DocumentReference document;
 
     RecyclerView mPhoneList;
-
     RecyclerView mAddressList;
-
     RecyclerView mEmailList;
-
     RecyclerView mWebsiteList;
-
     RecyclerView mWorkList;
+
+    String EMAIL = "email", PHONE = "phone", WEBSITE = "website", JOB = "job", ADDRESS = "address";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +70,6 @@ public class EditProfile extends AppCompatActivity {
         title = findViewById(R.id.editProfile_decriptionEditText);
 
         document = db.collection("users").document(user_id);
-
         document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -92,26 +78,55 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        setUpPhone();
-
-        setUpAddress();
-
-        setUpWebsite();
-
-        setUpEmail();
-
-        setUpWork();
-
-    }
-
-    private void setUpEmail() {
+        pd.show();
 
         mEmailList = (RecyclerView) findViewById(R.id.editprofile_emailAddRecyclerView);
-        mEmailList.setHasFixedSize(true);
-        mEmailList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getEmailList(this, mEmailList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandEmail), mEmailList);
+        mAddressList = (RecyclerView) findViewById(R.id.editprofile_addressAddRecyclerView);
+        mWorkList = (RecyclerView) findViewById(R.id.editprofile_workAddRecyclerView);
+        mWebsiteList = (RecyclerView) findViewById(R.id.editprofile_websiteAddRecyclerView);
+        mPhoneList = (RecyclerView) findViewById(R.id.editProfile_phoneAddRecyclerView);
 
+        addDataToRecyclerVIew(mWebsiteList, WEBSITE);
+        addDataToRecyclerVIew(mPhoneList, PHONE);
+        addDataToRecyclerVIew(mAddressList, ADDRESS);
+        addDataToRecyclerVIew(mEmailList, EMAIL);
+        addDataToRecyclerVIew(mWorkList, JOB);
+    }
+
+    private void addDataToRecyclerVIew(RecyclerView recyclerView, String field) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+
+        if (field.equals(EMAIL)) {
+            databaseQueries.getEmailList(this, mEmailList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandEmail), mEmailList);
+            setUpAddEmail();
+        } else if (field.equals(WEBSITE)) {
+            databaseQueries.getWebsiteList(this, mWebsiteList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWebsite), mWebsiteList);
+            setUpAddWebsite();
+        }
+        else if (field.equals(JOB)) {
+            databaseQueries.getWorkList(this, mWorkList, user_id, pd);
+            setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWork), mWorkList);
+            setUpAddWork();
+        }
+        else if (field.equals(ADDRESS)) {
+            databaseQueries.getAddressList(this, mAddressList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandAddress), mAddressList);
+            setUpAddAddress();
+        }
+        else if (field.equals(PHONE)) {
+            databaseQueries.getPhoneList(this, mPhoneList, user_id);
+            setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandPhone), mPhoneList);
+            setUpAddPhone();
+        }
+    }
+
+    /**
+     * description - This function is used to load email data in recycler view and add new email data
+     */
+    private void setUpAddEmail() {
         addEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +146,7 @@ public class EditProfile extends AppCompatActivity {
                         final Email email = new Email();
                         email.setEmail(editEmail.getText().toString());
                         email.setType("work"); //TO BE CODED
-                        databaseQueries.addEmail(email);
+                        databaseQueries.addEmail(email, alertDialog);
                     }
                 });
                 cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -144,13 +159,7 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    private void setUpAddress() {
-        mAddressList = (RecyclerView) findViewById(R.id.editprofile_addressAddRecyclerView);
-        mAddressList.setHasFixedSize(true);
-        mAddressList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getAddressList(this, mAddressList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandAddress), mAddressList);
-
+    private void setUpAddAddress() {
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +181,7 @@ public class EditProfile extends AppCompatActivity {
                         final Address address = new Address();
                         address.setAddress(editAddress.getText().toString());
                         address.setType("home");
-                        databaseQueries.addAddress(address);
+                        databaseQueries.addAddress(address, alertDialog);
                     }
                 });
 
@@ -186,13 +195,7 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    private void setUpWork() {
-        mWorkList = (RecyclerView) findViewById(R.id.editprofile_workAddRecyclerView);
-        mWorkList.setHasFixedSize(true);
-        mWorkList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getWorkList(this, mWorkList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWork), mWorkList);
-
+    private void setUpAddWork() {
         addWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,11 +217,10 @@ public class EditProfile extends AppCompatActivity {
                 isPresent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if(isPresent.isChecked()){
+                        if (isPresent.isChecked()) {
                             editEnd.setText("Present");
                             editEnd.setEnabled(false);
-                        }
-                        else {
+                        } else {
                             editEnd.setText("");
                             editEnd.setEnabled(true);
                         }
@@ -234,7 +236,7 @@ public class EditProfile extends AppCompatActivity {
                         work.setCompany(editCompany.getText().toString());
                         work.setStart(editStart.getText().toString());
                         work.setEnd(editEnd.getText().toString());
-                        databaseQueries.addWork(work);
+                        databaseQueries.addWork(work, alertDialog);
                     }
                 });
 
@@ -248,13 +250,7 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    private void setUpWebsite() {
-        mWebsiteList = (RecyclerView) findViewById(R.id.editprofile_websiteAddRecyclerView);
-        mWebsiteList.setHasFixedSize(true);
-        mWebsiteList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getWebsiteList(this, mWebsiteList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWebsite), mWebsiteList);
-
+    private void setUpAddWebsite() {
         addWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,7 +271,7 @@ public class EditProfile extends AppCompatActivity {
                         saveButton.setClickable(false);
                         final Website website = new Website();
                         website.setWebsite(editWebsite.getText().toString());
-                        databaseQueries.addWebsite(website);
+                        databaseQueries.addWebsite(website, alertDialog);
                     }
                 });
 
@@ -289,13 +285,7 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    private void setUpPhone() {
-        mPhoneList = (RecyclerView) findViewById(R.id.editProfile_phoneAddRecyclerView);
-        mPhoneList.setHasFixedSize(true);
-        mPhoneList.setLayoutManager(new LinearLayoutManager(this));
-        databaseQueries.getPhoneList(this, mPhoneList, user_id);
-        setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandPhone), mPhoneList);
-
+    private void setUpAddPhone() {
         addPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -318,7 +308,7 @@ public class EditProfile extends AppCompatActivity {
                         phone.setNumber(editPhone.getText().toString());
                         phone.setCode("+91");
                         phone.setType("home");
-                        databaseQueries.addPhone(phone);
+                        databaseQueries.addPhone(phone, alertDialog);
                     }
                 });
 
