@@ -30,9 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
+            android:textSize="15dp"
             app:boxBackgroundColor="@color/myDark"
             android:textColorHint="@color/colorOnBackgroundSDark"
-            android:textColor="@color/myOrange"
+            android:textColor="@android:color/white"
             android:padding="20dp"
             android:inputType="text"
             android:maxLines="1"/>

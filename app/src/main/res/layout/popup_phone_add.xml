@@ -7,6 +7,7 @@
     android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
+
     <TextView
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
@@ -15,29 +16,53 @@
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:fontFamily="@font/balooda_semibold"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/popupPhone_phoneTIL"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="none"
-        app:helperTextTextAppearance="@color/colorAccent"
-        android:textColorHint="@color/colorOnBackground"
-        android:layout_marginHorizontal="70dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/popupPhone_phoneEditText"
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/popupPhone_phoneSpinner"/>
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/popupPhone_phoneTIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone"
-            app:boxBackgroundColor="@color/myDark"
-            android:textColorHint="@color/colorOnBackgroundSDark"
-            android:textColor="@color/myOrange"
-            android:padding="20dp"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:maxLines="1"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:boxBackgroundMode="none"
+            app:helperTextTextAppearance="@color/colorAccent"
+            android:textColorHint="@color/colorOnBackground"
+            android:layout_marginHorizontal="70dp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/popupPhone_phoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textColor="@android:color/white"
+                android:padding="20dp"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_marginBottom="30dp"

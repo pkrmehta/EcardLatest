@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".EditProfile">
 
+    <include
+        layout="@layout/toolbar_edit_profile"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/main_toolbar"
+        android:layout_marginTop="-3dp"
+        android:background="@color/toolbarBack" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +40,7 @@
                 android:id="@+id/editProfile_firstNameTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:textColorHint="@color/colorOnBackground"
                 app:boxBackgroundMode="none"
@@ -41,21 +51,23 @@
                     android:id="@+id/editProfile_firstnameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     android:focusable="auto"
                     android:hint="Name"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="15dp"
-                    android:textColor="@color/myOrange"
+                    android:textColor="@android:color/white"
                     android:textColorHint="@color/colorOnBackgroundSDark"
                     app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
                 android:id="@+id/editProfile_lastNameTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:textColorHint="@color/colorOnBackground"
                 app:boxBackgroundMode="none"
                 app:helperTextTextAppearance="@color/colorAccent"/>
@@ -64,21 +76,22 @@
                 android:id="@+id/editProfile_descriptionTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:textColorHint="@color/colorOnBackground"
                 app:boxBackgroundMode="none"
-                app:helperTextTextAppearance="@color/colorAccent">
+                app:helperTextTextAppearance="@color/colorOnBackground">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editProfile_decriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     android:hint="Description"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="15dp"
-                    android:textColor="@color/myOrange"
+                    android:textColor="@android:color/white"
                     android:textColorHint="@color/colorOnBackgroundSDark"
                     app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +100,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/myDarkLight"
@@ -119,13 +132,14 @@
                             android:src="@drawable/down" />
 
                         <LinearLayout
+                            android:layout_marginLeft="-40dp"
+                            android:paddingHorizontal="50dp"
                             android:id="@+id/editProfile_phoneAddButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="20dp">
+                            android:orientation="horizontal">
 
                             <ImageButton
                                 android:layout_width="15dp"
@@ -149,6 +163,7 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/editProfile_phoneAddRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -165,7 +180,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/myDarkLight"
@@ -203,7 +218,8 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingHorizontal="20dp">
+                            android:layout_marginLeft="-40dp"
+                            android:paddingHorizontal="50dp">
 
                             <ImageButton
                                 android:layout_width="15dp"
@@ -227,6 +243,7 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/editprofile_websiteAddRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -243,7 +260,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/myDarkLight"
@@ -305,6 +322,7 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/editprofile_emailAddRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -321,7 +339,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/myDarkLight"
@@ -382,6 +400,7 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/editprofile_addressAddRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -395,10 +414,10 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-
+                android:layout_marginBottom="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/myDarkLight"
@@ -459,6 +478,7 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/editprofile_workAddRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

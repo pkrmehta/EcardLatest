@@ -30,13 +30,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textSize="15dp"
             app:boxBackgroundColor="@color/myDark"
             android:textColorHint="@color/colorOnBackgroundSDark"
-            android:textColor="@color/myOrange"
+            android:textColor="@android:color/white"
             android:padding="20dp"
             android:inputType="textWebEmailAddress"
             android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:orientation="horizontal">
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/popupEmail_emailTypeSpinner"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginBottom="30dp"

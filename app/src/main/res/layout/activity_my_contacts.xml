@@ -11,7 +11,8 @@
 
     <include
         android:id="@+id/main_toolbar"
-        layout="@layout/toolbar_my_contacts" />
+        layout="@layout/toolbar_my_contacts"/>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -51,6 +52,60 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/toolbarBack"/>
+
+
+    <LinearLayout
+        android:id="@+id/mycontact_noContactMessage"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:fontFamily="@font/balooda_regular"
+            android:textColor="@color/colorAccent"
+            android:text="No contacts Available"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/myContact_addContactButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/myDarkLight"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            android:clickable="true">
+
+            <TextView
+
+                android:paddingTop="7dp"
+                android:paddingBottom="4dp"
+                android:paddingHorizontal="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add contact"
+                android:textColor="@color/myOrange"
+                android:fontFamily="@font/balooda_semibold"
+                android:textSize="20dp"/>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:paddingHorizontal="10dp"

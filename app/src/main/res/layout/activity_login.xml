@@ -47,9 +47,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
+                android:textSize="15dp"
                 app:boxBackgroundColor="@color/myDark"
                 android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@color/myOrange"
+                android:textColor="@android:color/white"
                 android:padding="20dp"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"/>
@@ -71,9 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:textSize="15dp"
                 app:boxBackgroundColor="@color/myDark"
                 android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@color/myOrange"
+                android:textColor="@android:color/white"
                 android:padding="20dp"
                 android:inputType="textPassword"
                 android:maxLines="1"/>

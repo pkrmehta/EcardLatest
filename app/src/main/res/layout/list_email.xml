@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_marginLeft="30dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
     android:weightSum="2">
 
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:src="@drawable/dot"/>
+
     <TextView
+        android:layout_marginLeft="10dp"
         android:id="@+id/listEmail_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,19 +22,23 @@
         android:layout_weight="2"
         android:autoSizeTextType="uniform"
         android:text="prashantkr66@gmail.com"
+        android:fontFamily="@font/balooda_regular"
         android:textColor="@android:color/white"
-        android:textSize="17dp" />
+        android:textSize="15dp" />
     />
 
     <TextView
         android:id="@+id/listEmail_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:layout_marginLeft="5dp"
+        android:text="Primary"
+        android:textColor="@color/myDark"
+        android:background="@drawable/list_primary_back"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginRight="10dp"
         android:paddingHorizontal="10dp"
-        android:text="PRIMARY"
-        android:textColor="@android:color/white" />
+        android:fontFamily="@font/balooda_regular"/>
 
 
 </LinearLayout>

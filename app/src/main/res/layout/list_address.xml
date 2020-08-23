@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_marginLeft="30dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
     android:weightSum="2">
 
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:src="@drawable/dot"/>
+
     <TextView
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/balooda_regular"
         android:id="@+id/listAddress_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,16 +24,18 @@
         android:autoSizeTextType="uniform"
         android:text="Vastu Vihar, JW-2, Road No - 4 "
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
     />
     <TextView
         android:id="@+id/listAddress_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginLeft="5dp"
+        android:text="Primary"
+        android:textColor="@color/myDark"
+        android:background="@drawable/list_primary_back"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginRight="10dp"
         android:paddingHorizontal="10dp"
-        android:text="CURRENT"
-        android:gravity="end|center_vertical"
-        android:textColor="@android:color/white" />
+        android:fontFamily="@font/balooda_regular"/>
 </LinearLayout>
