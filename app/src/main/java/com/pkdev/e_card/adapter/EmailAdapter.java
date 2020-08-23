@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pkdev.e_card.EditProfile;
 import com.pkdev.e_card.R;
 import com.pkdev.e_card.model.Email;
 
@@ -18,6 +20,7 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.TestViewHold
 
     Context mCtx;
     List<Email> emailList;
+    EditProfile editProfile;
 
     public EmailAdapter(Context mCtx,List<Email> emailList)
     {
@@ -35,10 +38,19 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.TestViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        Email email = emailList.get(position);
+    public void onBindViewHolder(@NonNull TestViewHolder holder, final int position) {
+        final Email email = emailList.get(position);
         holder.emailAddress.setText(email.getEmail());
         holder.emailType.setText(email.getType());
+        holder.linearEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editProfile = (EditProfile) mCtx;
+                if (editProfile.isEditable) {
+                    editProfile.showEmalDialog("edit", email, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -49,10 +61,12 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.TestViewHold
     class TestViewHolder extends RecyclerView.ViewHolder
     {
         TextView emailAddress,emailType;
+        LinearLayout linearEmail;
         public TestViewHolder(View itemView) {
             super(itemView);
             emailAddress = (TextView) itemView.findViewById(R.id.listEmail_email);
             emailType = (TextView) itemView.findViewById(R.id.listEmail_type);
+            linearEmail = (LinearLayout) itemView.findViewById(R.id.linear_email);
         }
     }
 }

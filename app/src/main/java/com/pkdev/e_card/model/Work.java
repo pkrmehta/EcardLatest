@@ -1,13 +1,27 @@
 package com.pkdev.e_card.model;
 
 public class Work {
-    String company,position,start,end;
+    String company;
+    String position;
+    String start;
+    String end;
 
-    public Work(String company, String position, String start, String end) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
+
+    public Work(String company, String position, String start, String end, String id) {
         this.company = company;
         this.position = position;
         this.start = start;
         this.end = end;
+        this.id = id;
     }
 
     public Work(){
