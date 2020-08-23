@@ -1,7 +1,15 @@
 package com.pkdev.e_card.model;
 
 public class Phone {
-    String number,code,type;
+    String number,code,type,id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Phone(){
 
@@ -30,9 +38,10 @@ public class Phone {
         this.type = type;
     }
 
-    public Phone(String number, String code, String type) {
+    public Phone(String number, String code, String type, String id) {
         this.number = number;
         this.code = code;
         this.type = type;
+        this.id = id;
     }
 }

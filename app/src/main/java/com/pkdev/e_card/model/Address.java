@@ -1,7 +1,18 @@
 package com.pkdev.e_card.model;
 
 public class Address {
-    String address,type;
+    String address;
+    String type;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
 
     public String getAddress() {
         return address;
@@ -23,8 +34,9 @@ public class Address {
 
     }
 
-    public Address(String address, String type) {
+    public Address(String address, String type, String id) {
         this.address = address;
         this.type = type;
+        this.id = id;
     }
 }

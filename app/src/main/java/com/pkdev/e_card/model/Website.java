@@ -9,10 +9,21 @@ public class Website {
         this.website = website;
     }
 
-    public Website(String website) {
+    public Website(String website, String id) {
         this.website = website;
+        this.id = id;
     }
     public Website(){}
 
     String website;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
 }

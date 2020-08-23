@@ -143,15 +143,15 @@ public class DatabaseQueries {
     public void addEmail(final Email email, final AlertDialog dialog) {
         if (emailList.size() < 3) {
             EditProfile.pd.show();
-
-            document.collection("email").add(email).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            final String doc_id = document.collection("email").document().getId();
+            email.setId(doc_id);
+            document.collection("email").document(doc_id).set(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     emailList.add(email);
                     emailAdapter.notifyDataSetChanged();
                     dialog.cancel();
                     EditProfile.pd.dismiss();
-
                 }
             });
         } else {
@@ -162,10 +162,11 @@ public class DatabaseQueries {
     public void addAddress(final Address address, final AlertDialog dialog) {
         if (addressList.size() < 3) {
             EditProfile.pd.show();
-
-            document.collection("address").add(address).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            final String doc_id = document.collection("address").document().getId();
+            address.setId(doc_id);
+            document.collection("address").document(doc_id).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     addressList.add(address);
                     addressAdapter.notifyDataSetChanged();
                     dialog.cancel();
@@ -180,10 +181,11 @@ public class DatabaseQueries {
     public void addWork(final Work work, final AlertDialog dialog) {
         if (workList.size() < 2) {
             EditProfile.pd.show();
-
-            document.collection("job").add(work).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            final String doc_id = document.collection("job").document().getId();
+            work.setId(doc_id);
+            document.collection("job").document(doc_id).set(work).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     workList.add(work);
                     workAdapter.notifyDataSetChanged();
                     dialog.cancel();
@@ -198,10 +200,11 @@ public class DatabaseQueries {
     public void addWebsite(final Website website, final AlertDialog dialog) {
         if (websiteList.size() < 2) {
             EditProfile.pd.show();
-
-            document.collection("website").add(website).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            final String doc_id = document.collection("website").document().getId();
+            website.setId(doc_id);
+            document.collection("website").document(doc_id).set(website).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     websiteList.add(website);
                     websiteAdapter.notifyDataSetChanged();
                     dialog.cancel();
@@ -216,9 +219,11 @@ public class DatabaseQueries {
     public void addPhone(final Phone phone, final AlertDialog dialog) {
         if (phoneList.size() < 2) {
             EditProfile.pd.show();
-            document.collection("phone").add(phone).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            final String doc_id = document.collection("phone").document().getId();
+            phone.setId(doc_id);
+            document.collection("phone").document(doc_id).set(phone).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     phoneList.add(phone);
                     phoneAdapter.notifyDataSetChanged();
                     dialog.cancel();
@@ -230,4 +235,73 @@ public class DatabaseQueries {
         }
     }
 
+    public void editPhone(final Phone phone, final AlertDialog dialog, final int position) {
+        EditProfile.pd.show();
+        document.collection("phone").document(phone.getId()).set(phone).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                phoneList.remove(position);
+                phoneList.add(phone);
+                phoneAdapter.notifyDataSetChanged();
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+            }
+        });
+    }
+
+    public void editWebsite(final Website website, final AlertDialog dialog, final int position) {
+        EditProfile.pd.show();
+        document.collection("website").document(website.getId()).set(website).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                websiteList.remove(position);
+                websiteList.add(website);
+                websiteAdapter.notifyDataSetChanged();
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+            }
+        });
+    }
+
+    public void editWork(final Work work, final AlertDialog dialog, final int position) {
+        EditProfile.pd.show();
+        document.collection("job").document(work.getId()).set(work).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                workList.remove(position);
+                workList.add(work);
+                workAdapter.notifyDataSetChanged();
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+            }
+        });
+    }
+
+    public void editAddress(final Address address, final AlertDialog dialog, final int position) {
+        EditProfile.pd.show();
+        document.collection("address").document(address.getId()).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                addressList.remove(position);
+                addressList.add(address);
+                addressAdapter.notifyDataSetChanged();
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+            }
+        });
+    }
+
+    public void editEmail(final Email email, final AlertDialog dialog, final int position) {
+        EditProfile.pd.show();
+        document.collection("email").document(email.getId()).set(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                emailList.remove(position);
+                emailList.add(email);
+                emailAdapter.notifyDataSetChanged();
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+            }
+        });
+    }
 }

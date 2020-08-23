@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pkdev.e_card.EditProfile;
 import com.pkdev.e_card.R;
 import com.pkdev.e_card.model.Address;
 
@@ -18,6 +20,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.TestView
 
     Context mCtx;
     List<Address> addressList;
+    EditProfile editProfile;
 
     public AddressAdapter(Context mCtx,List<Address> addressList)
     {
@@ -35,10 +38,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.TestView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        Address address = addressList.get(position);
+    public void onBindViewHolder(@NonNull TestViewHolder holder, final int position) {
+        final Address address = addressList.get(position);
         holder.address.setText(address.getAddress());
         holder.type.setText(address.getType());
+        holder.linearAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editProfile = (EditProfile) mCtx;
+                if (editProfile.isEditable) {
+                    editProfile.showAddressDialog("edit", address, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -49,10 +61,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.TestView
     class TestViewHolder extends RecyclerView.ViewHolder
     {
         TextView address,type;
+        LinearLayout linearAddress;
         public TestViewHolder(View itemView) {
             super(itemView);
             address = (TextView) itemView.findViewById(R.id.listAddress_address);
             type = (TextView) itemView.findViewById(R.id.listAddress_type);
+            linearAddress = (LinearLayout) itemView.findViewById(R.id.linear_address);
         }
     }
 }

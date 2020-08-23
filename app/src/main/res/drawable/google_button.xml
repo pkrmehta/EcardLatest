@@ -6,8 +6,4 @@
             <corners android:radius="20px"/>
         </shape>
     </item>
-
-
-
-
 </selector>

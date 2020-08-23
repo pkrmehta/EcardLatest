@@ -31,10 +31,11 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/editProfile_imageProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/temp_pic" />
+                android:src="@drawable/myinfo" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editProfile_firstNameTIL"
@@ -51,7 +52,7 @@
                     android:id="@+id/editProfile_firstnameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:enabled="false"
                     android:focusable="auto"
                     android:hint="Name"
                     android:inputType="textEmailAddress"
@@ -59,6 +60,7 @@
                     android:padding="15dp"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/colorOnBackgroundSDark"
+                    android:textSize="15dp"
                     app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,13 +88,14 @@
                     android:id="@+id/editProfile_decriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:enabled="false"
                     android:hint="Description"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="15dp"
                     android:textColor="@android:color/white"
                     android:textColorHint="@color/colorOnBackgroundSDark"
+                    android:textSize="15dp"
                     app:boxBackgroundColor="@color/myDark" />
             </com.google.android.material.textfield.TextInputLayout>
 

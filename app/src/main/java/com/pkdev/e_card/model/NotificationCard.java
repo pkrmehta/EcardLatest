@@ -1,7 +1,22 @@
 package com.pkdev.e_card.model;
 
 public class NotificationCard {
-    String icon,name,desc,heading,time,userid;
+    String icon;
+    String name;
+    String desc;
+    String heading;
+    String time;
+    String userid;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
 
     public String getIcon() {
         return icon;
@@ -55,12 +70,13 @@ public class NotificationCard {
 
     }
 
-    public NotificationCard(String icon, String name, String desc, String heading, String time,String userid) {
+    public NotificationCard(String icon, String name, String desc, String heading, String time,String userid, String id) {
         this.icon = icon;
         this.name = name;
         this.desc = desc;
         this.heading = heading;
         this.time = time;
         this.userid = userid;
+        this.id = id;
     }
 }

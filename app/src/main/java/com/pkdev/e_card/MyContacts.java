@@ -99,6 +99,10 @@ public class MyContacts extends AppCompatActivity {
                     }
                     contactAdapter = new ContactAdapter(MyContacts.this, contactList);
                     mContactList.setAdapter(contactAdapter);
+                    if(contactList.size() < 1){
+                        findViewById(R.id.mycontact_noContactMessage).setVisibility(View.VISIBLE);
+                        mContactList.setVisibility(View.GONE);
+                    }
                     //If ProgressDialog is showing Dismiss it
                     if (pd.isShowing()) {
                         pd.dismiss();

@@ -3,7 +3,21 @@ package com.pkdev.e_card.model;
 import java.util.List;
 
 public class Contact {
-    String image,name,title,userid,saved;
+    String image;
+    String name;
+    String title;
+    String userid;
+    String saved;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
     List<Email> emailData;
 
     public List<Email> getEmailData() {
@@ -26,13 +40,14 @@ public class Contact {
 
     }
 
-    public Contact(String image, String name, String title, String userid, String saved, List<Email> emailData) {
+    public Contact(String image, String name, String title, String userid, String saved, List<Email> emailData, String id) {
         this.image = image;
         this.name = name;
         this.title = title;
         this.userid = userid;
         this.saved = saved;
         this.emailData = emailData;
+        this.id = id;
     }
 
     public String getImage() {
