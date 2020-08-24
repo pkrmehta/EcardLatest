@@ -30,9 +30,9 @@
             android:id="@+id/myContact_List"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/myDarkLight"
+            android:background="@drawable/ripple"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/myContacts_listImageView"

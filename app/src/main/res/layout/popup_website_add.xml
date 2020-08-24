@@ -16,13 +16,14 @@
         android:textSize="20dp"
         android:fontFamily="@font/balooda_semibold"/>
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/popupWebsite_websiteTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="none"
         app:helperTextTextAppearance="@color/colorAccent"
         android:textColorHint="@color/colorOnBackground"
-        android:layout_marginHorizontal="70dp">
+        android:layout_marginHorizontal="30dp">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -57,9 +58,9 @@
             android:text="Cancel"
             android:gravity="center"
             android:layout_weight="1"
-            android:paddingVertical="7dp"
+            android:paddingVertical="3dp"
             android:fontFamily="@font/balooda_semibold"
-            android:textSize="18dp"/>
+            android:textSize="15dp"/>
 
         <TextView
             android:id="@+id/popupWebsite_saveButton"
@@ -70,9 +71,9 @@
             android:text="Save"
             android:gravity="center"
             android:layout_weight="1"
-            android:paddingVertical="7dp"
+            android:paddingVertical="3dp"
             android:fontFamily="@font/balooda_semibold"
-            android:textSize="18dp"/>
+            android:textSize="15dp"/>
 
 
 

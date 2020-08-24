@@ -18,13 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:autoSizeTextType="uniform"
-        android:clickable="true"
         android:fontFamily="@font/balooda_regular"
-        android:text="Ecard.com"
+        android:paddingHorizontal="5dp"
+        android:text="address"
         android:textColor="#0094FF"
-        android:textSize="15dp" />
-    />
+        android:textSize="15sp" />
 
 </LinearLayout>

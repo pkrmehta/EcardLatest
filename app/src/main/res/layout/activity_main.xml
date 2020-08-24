@@ -36,6 +36,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -46,10 +47,12 @@
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
+                        android:clickable="true"
+                        android:focusable="true"
                         android:id="@+id/main_basicInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/myDarkLight"
+                        android:background="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="10dp"
