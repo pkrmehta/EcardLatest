@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pkdev.e_card">
 
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditProfile"/>
+        <activity android:name=".ContactUs"></activity>
+        <activity android:name=".PrivacyPolicy" />
+        <activity android:name=".TnC" />
+        <activity android:name=".AboutUs" />
+        <activity android:name=".EditProfile" />
         <activity android:name=".ContactDetail" />
         <activity android:name=".Congrats" />
         <activity android:name=".SignUp" />
@@ -21,14 +22,19 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
         <activity android:name=".Accept">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="pkdev" android:scheme="https" />
-                <data android:host="pkdev" android:scheme="http" />
+
+                <data
+                    android:host="pkdev"
+                    android:scheme="https" />
+                <data
+                    android:host="pkdev"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity android:name=".CapturedActivity" />
@@ -42,5 +48,8 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>
