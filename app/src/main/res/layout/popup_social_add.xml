@@ -43,16 +43,17 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editInstagram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Connect Instagram"
-                android:textSize="15dp"
-                app:boxBackgroundColor="@color/myDark"
-                android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
+                android:hint="Instagram"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,16 +85,17 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editFacebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Connect Facebook"
-                android:textSize="15dp"
-                app:boxBackgroundColor="@color/myDark"
-                android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
+                android:hint="facebook"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -125,16 +127,17 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editSnapchat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Connect Snapchat"
-                android:textSize="15dp"
-                app:boxBackgroundColor="@color/myDark"
-                android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
+                android:hint="snapchat"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -166,16 +169,17 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editLinkedin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Connect Linkedin"
-                android:textSize="15dp"
-                app:boxBackgroundColor="@color/myDark"
-                android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
+                android:hint="linkedin"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -207,16 +211,17 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Connect Twitter"
-                android:textSize="15dp"
-                app:boxBackgroundColor="@color/myDark"
-                android:textColorHint="@color/colorOnBackgroundSDark"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
+                android:hint="twitter"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

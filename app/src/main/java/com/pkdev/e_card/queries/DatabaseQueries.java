@@ -16,6 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.pkdev.e_card.EditProfile;
 import com.pkdev.e_card.adapter.AddressAdapter;
 import com.pkdev.e_card.adapter.EmailAdapter;
@@ -25,6 +26,7 @@ import com.pkdev.e_card.adapter.WorkAdapter;
 import com.pkdev.e_card.model.Address;
 import com.pkdev.e_card.model.Email;
 import com.pkdev.e_card.model.Phone;
+import com.pkdev.e_card.model.Social;
 import com.pkdev.e_card.model.Website;
 import com.pkdev.e_card.model.Work;
 
@@ -233,6 +235,18 @@ public class DatabaseQueries {
         } else {
 
         }
+    }
+
+    public void addSocial(final Social social, final AlertDialog dialog) {
+        EditProfile.pd.show();
+        document.collection("social").document("social_id").set(social).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                dialog.cancel();
+                EditProfile.pd.dismiss();
+                EditProfile.setUpSocial();
+            }
+        });
     }
 
     public void editPhone(final Phone phone, final AlertDialog dialog, final int position) {

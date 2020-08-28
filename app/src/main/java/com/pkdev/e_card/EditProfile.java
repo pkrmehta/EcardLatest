@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +44,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.pkdev.e_card.model.Address;
 import com.pkdev.e_card.model.Email;
 import com.pkdev.e_card.model.Phone;
+import com.pkdev.e_card.model.Social;
 import com.pkdev.e_card.model.Website;
 import com.pkdev.e_card.model.Work;
 import com.pkdev.e_card.queries.DatabaseQueries;
@@ -49,6 +54,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -59,13 +65,14 @@ public class EditProfile extends AppCompatActivity {
     public static ProgressDialog pd;
     EditText name, title;
     LinearLayout logoutButton, addEmail, addWebsite, addWork, addAddress, addPhone;
+    ImageButton socialEdit;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
     DatabaseQueries databaseQueries = new DatabaseQueries();
     private StorageReference mImageStorage;
 
-    DocumentReference document;
+    static DocumentReference document;
 
     private Menu globalMenu;
 
@@ -82,7 +89,10 @@ public class EditProfile extends AppCompatActivity {
     public boolean isEditable = false;
     private static final int GALLERY_PICK = 1;
 
+    static ImageButton buttonInstagram, buttonFacebook, buttonLinkedin, buttonTwitter, buttonSnapchat;
     CircleImageView imageView;
+
+    static String instagramLink = "",facebookLink = "",linkedinLink = "",twitterLink = "",snapchatLink = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +107,15 @@ public class EditProfile extends AppCompatActivity {
         addWebsite = findViewById(R.id.editProfile_websiteAddButton);
         addPhone = findViewById(R.id.editProfile_phoneAddButton);
 
+        buttonFacebook = findViewById(R.id.editProfile_facebook);
+        buttonInstagram = findViewById(R.id.editProfile_instagram);
+        buttonTwitter = findViewById(R.id.editProfile_twitter);
+        buttonLinkedin = findViewById(R.id.editProfile_linkedin);
+        buttonSnapchat = findViewById(R.id.editProfile_snapchat);
+
         mImageStorage = FirebaseStorage.getInstance().getReference();
+
+        socialEdit = findViewById(R.id.editProfile_socialEdit);
 
         pd = new ProgressDialog(EditProfile.this);
         pd.setCanceledOnTouchOutside(false);
@@ -145,13 +163,81 @@ public class EditProfile extends AppCompatActivity {
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
-                /*
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(ProfileActivity.this);
-                        */
             }
         });
+
+        socialEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Social social = new Social();
+                showSocialDialog(EDIT, social);
+            }
+        });
+
+        buttonInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        setUpSocial();
+    }
+
+    public static void setUpSocial(){
+        document.collection("social").document("social_id").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Social social = task.getResult().toObject(Social.class);
+                    if (social.getInstagram().length() > 0) {
+                        buttonInstagram.setVisibility(View.VISIBLE);
+                        instagramLink = social.getInstagram();
+                    }
+                    else {
+                        buttonInstagram.setVisibility(View.GONE);
+                    }
+
+                    if (social.getFacebook().length() > 0) {
+                        buttonFacebook.setVisibility(View.VISIBLE);
+                        facebookLink = social.getFacebook();
+                    }
+                    else {
+                        buttonFacebook.setVisibility(View.GONE);
+                    }
+
+                    if (social.getLinkedin().length() > 0) {
+                        buttonLinkedin.setVisibility(View.VISIBLE);
+                        linkedinLink = social.getLinkedin();
+                    }
+                    else {
+                        buttonLinkedin.setVisibility(View.GONE);
+                    }
+
+                    if (social.getTwitter().length() > 0) {
+                        buttonTwitter.setVisibility(View.VISIBLE);
+                        twitterLink = social.getTwitter();
+                    }
+                    else {
+                        buttonTwitter.setVisibility(View.GONE);
+                    }
+
+                    if (social.getSnapchat().length() > 0) {
+                        buttonSnapchat.setVisibility(View.VISIBLE);
+                        snapchatLink = social.getSnapchat();
+                    }
+                    else {
+                        buttonSnapchat.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean isIntentAvailable(Context ctx, Intent intent) {
+        final PackageManager packageManager = ctx.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
     }
 
     private void addDataToRecyclerVIew(RecyclerView recyclerView, String field) {
@@ -245,9 +331,9 @@ public class EditProfile extends AppCompatActivity {
         final MaterialSpinner spinner = (MaterialSpinner) popAddressLayout.findViewById(R.id.popupEmail_emailTypeSpinner);
         spinner.setItems("primary", "work");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
             }
         });
         dialog.setView(popAddressLayout);
@@ -260,11 +346,20 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View view) {
                 saveButton.setClickable(false);
                 email.setEmail(editEmail.getText().toString());
-                email.setType("work"); //TO BE CODED
-                if (mode.equals(ADD))
-                    databaseQueries.addEmail(email, alertDialog);
-                else if (mode.equals(EDIT)) {
-                    databaseQueries.editEmail(email, alertDialog, position);
+                email.setType(spinner.getItems().get(spinner.getSelectedIndex()).toString());
+                if (email.getEmail().length() > 5) {
+                    if (mode.equals(ADD))
+                        databaseQueries.addEmail(email, alertDialog);
+                    else if (mode.equals(EDIT)) {
+                        databaseQueries.editEmail(email, alertDialog, position);
+                    }
+                } else {
+                    saveButton.setClickable(true);
+                    if (email.getEmail().length() == 0) {
+                        editEmail.setError("Please enter your address");
+                    } else if (email.getEmail().length() > 0 && email.getEmail().length() < 5) {
+                        editEmail.setError("Please enter a valid email");
+                    }
                 }
             }
         });
@@ -297,10 +392,19 @@ public class EditProfile extends AppCompatActivity {
                 address.setAddress(editAddress.getText().toString());
                 address.setType("home");
 
-                if (mode.equals(ADD))
-                    databaseQueries.addAddress(address, alertDialog);
-                else if (mode.equals(EDIT)) {
-                    databaseQueries.editAddress(address, alertDialog, position);
+                if (address.getAddress().length() > 5) {
+                    if (mode.equals(ADD))
+                        databaseQueries.addAddress(address, alertDialog);
+                    else if (mode.equals(EDIT)) {
+                        databaseQueries.editAddress(address, alertDialog, position);
+                    }
+                } else {
+                    saveButton.setClickable(true);
+                    if (address.getAddress().length() == 0) {
+                        editAddress.setError("Please enter your address");
+                    } else if (address.getAddress().length() > 0 && address.getAddress().length() < 5) {
+                        editAddress.setError("Please enter a valid address");
+                    }
                 }
             }
         });
@@ -358,11 +462,21 @@ public class EditProfile extends AppCompatActivity {
                 work.setStart(editStart.getText().toString());
                 work.setEnd(editEnd.getText().toString());
 
-                if (mode.equals(ADD))
-                    databaseQueries.addWork(work, alertDialog);
-                else if (mode.equals(EDIT)) {
-                    databaseQueries.editWork(work, alertDialog, position);
+                if (work.getCompany().length() > 0 && work.getPosition().length() > 0) {
+                    if (mode.equals(ADD))
+                        databaseQueries.addWork(work, alertDialog);
+                    else if (mode.equals(EDIT)) {
+                        databaseQueries.editWork(work, alertDialog, position);
+                    }
+                } else {
+                    saveButton.setClickable(true);
+                    if (work.getCompany().length() == 0) {
+                        editCompany.setError("Please enter your organization name");
+                    } else if (work.getPosition().length() == 0) {
+                        editDesignation.setError("Please enter your position");
+                    }
                 }
+
             }
         });
 
@@ -394,10 +508,18 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View view) {
                 saveButton.setClickable(false);
                 website.setWebsite(editWebsite.getText().toString());
-                if (mode.equals(ADD))
-                    databaseQueries.addWebsite(website, alertDialog);
-                else if (mode.equals(EDIT)) {
-                    databaseQueries.editWebsite(website, alertDialog, position);
+
+                if (website.getWebsite().length() > 0) {
+                    if (mode.equals(ADD))
+                        databaseQueries.addWebsite(website, alertDialog);
+                    else if (mode.equals(EDIT)) {
+                        databaseQueries.editWebsite(website, alertDialog, position);
+                    }
+                } else {
+                    saveButton.setClickable(true);
+                    if (website.getWebsite().length() == 0) {
+                        editWebsite.setError("Please enter your website address");
+                    }
                 }
             }
         });
@@ -422,9 +544,9 @@ public class EditProfile extends AppCompatActivity {
         final MaterialSpinner spinner = (MaterialSpinner) popPhoneLayout.findViewById(R.id.popupPhone_phoneSpinner);
         spinner.setItems("+91", "+1", "+2");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -440,10 +562,67 @@ public class EditProfile extends AppCompatActivity {
                 phone.setNumber(editPhone.getText().toString());
                 phone.setCode("+91");
                 phone.setType("home");
+
+                if (phone.getNumber().length() == 10) {
+                    if (mode.equals(ADD))
+                        databaseQueries.addPhone(phone, alertDialog);
+                    else if (mode.equals(EDIT)) {
+                        databaseQueries.editPhone(phone, alertDialog, position);
+                    }
+                } else {
+                    saveButton.setClickable(true);
+                    if (phone.getNumber().length() != 10) {
+                        editPhone.setError("Please enter a valid phone number");
+                    }
+                }
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.cancel();
+            }
+        });
+    }
+
+    public void showSocialDialog(final String mode, final Social social) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(EditProfile.this);
+        LayoutInflater inflater = LayoutInflater.from(EditProfile.this);
+        View popPhoneLayout = inflater.inflate(R.layout.popup_social_add, null);
+
+        final EditText editInstagram = popPhoneLayout.findViewById(R.id.social_editInstagram);
+        final EditText editFacebook = popPhoneLayout.findViewById(R.id.social_editFacebook);
+        final EditText editSnapchat = popPhoneLayout.findViewById(R.id.social_editSnapchat);
+        final EditText editTwitter = popPhoneLayout.findViewById(R.id.social_editTwitter);
+        final EditText editLinkedin = popPhoneLayout.findViewById(R.id.social_editLinkedin);
+
+        final TextView saveButton = popPhoneLayout.findViewById(R.id.popupSocial_saveButton);
+        final TextView cancelButton = popPhoneLayout.findViewById(R.id.popupSocial_cancelButton);
+
+        editInstagram.setText(instagramLink);
+        editTwitter.setText(twitterLink);
+        editSnapchat.setText(snapchatLink);
+        editFacebook.setText(facebookLink);
+        editLinkedin.setText(linkedinLink);
+
+        dialog.setView(popPhoneLayout);
+        final AlertDialog alertDialog = dialog.show();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveButton.setClickable(false);
+                social.setInstagram(editInstagram.getText().toString());
+                social.setFacebook(editFacebook.getText().toString());
+                social.setLinkedin(editLinkedin.getText().toString());
+                social.setSnapchat(editSnapchat.getText().toString());
+                social.setTwitter(editTwitter.getText().toString());
+
+                pd.show();
                 if (mode.equals(ADD))
-                    databaseQueries.addPhone(phone, alertDialog);
+                    databaseQueries.addSocial(social, alertDialog);
                 else if (mode.equals(EDIT)) {
-                    databaseQueries.editPhone(phone, alertDialog, position);
+                    databaseQueries.addSocial(social, alertDialog);
                 }
             }
         });
@@ -471,12 +650,14 @@ public class EditProfile extends AppCompatActivity {
                 title.setEnabled(true);
                 item.setVisible(false);
                 isEditable = true;
+                socialEdit.setVisibility(View.VISIBLE);
                 globalMenu.findItem(R.id.item_save).setVisible(true);
                 break;
             case (R.id.item_save):
                 saveProfileData(name.getText().toString(), title.getText().toString());
                 item.setVisible(false);
                 isEditable = false;
+                socialEdit.setVisibility(View.GONE);
                 globalMenu.findItem(R.id.item_edit).setVisible(true);
                 break;
         }
@@ -506,6 +687,14 @@ public class EditProfile extends AppCompatActivity {
     private void setUpToolbar() {
         toolbar = findViewById(R.id.edit_profile_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setUpExpandButton(ImageButton expandButton, final RecyclerView recyclerView) {
