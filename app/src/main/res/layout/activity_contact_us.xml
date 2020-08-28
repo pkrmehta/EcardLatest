@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent"
+    android:background="@color/myDark"
+    android:orientation="vertical"
+    tools:context=".ContactUs">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Us"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/balooda_semibold"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="You can reach us either by a call or an email"
+        android:fontFamily="@font/balooda_regular"/>
+
+    <LinearLayout
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/contactUs_CallButton"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myinfo_layoutback"
+            android:text="Call"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingVertical="3dp"
+            android:fontFamily="@font/balooda_semibold"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/contactUs_emailButton"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myinfo_layoutback"
+            android:text="Email"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingVertical="3dp"
+            android:fontFamily="@font/balooda_semibold"
+            android:textSize="15dp"/>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

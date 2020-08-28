@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.pkdev.e_card.model.Address;
 import com.pkdev.e_card.model.Email;
 import com.pkdev.e_card.model.Phone;
@@ -239,6 +241,15 @@ public class EditProfile extends AppCompatActivity {
         final EditText editEmail = popAddressLayout.findViewById(R.id.popupEmail_emailEditText);
         final TextView saveButton = popAddressLayout.findViewById(R.id.popupEmail_saveButton);
         final TextView cancelButton = popAddressLayout.findViewById(R.id.popupEmail_CancelButton);
+
+        final MaterialSpinner spinner = (MaterialSpinner) popAddressLayout.findViewById(R.id.popupEmail_emailTypeSpinner);
+        spinner.setItems("primary", "work");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
         dialog.setView(popAddressLayout);
         final AlertDialog alertDialog = dialog.show();
 
@@ -407,6 +418,15 @@ public class EditProfile extends AppCompatActivity {
         final EditText editPhone = popPhoneLayout.findViewById(R.id.popupPhone_phoneEditText);
         final TextView saveButton = popPhoneLayout.findViewById(R.id.popupPhone_saveButton);
         final TextView cancelButton = popPhoneLayout.findViewById(R.id.popupPhone_cancelButton);
+
+        final MaterialSpinner spinner = (MaterialSpinner) popPhoneLayout.findViewById(R.id.popupPhone_phoneSpinner);
+        spinner.setItems("+91", "+1", "+2");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         editPhone.setText(phone.getNumber());
 

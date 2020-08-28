@@ -48,6 +48,8 @@
         android:orientation="horizontal">
 
         <com.jaredrummler.materialspinner.MaterialSpinner
+            app:ms_background_color="@color/myDarkLight"
+            app:ms_text_color="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/popupEmail_emailTypeSpinner"/>
