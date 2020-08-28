@@ -16,15 +16,6 @@
             android:layout_height="match_parent"
             android:elevation="10dp"
             >
-            <ImageButton
-                android:id="@+id/editProfile_back"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:scaleType="fitCenter"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/back"/>
             <TextView
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"

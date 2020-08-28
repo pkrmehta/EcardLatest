@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/myDark"
+    android:orientation="vertical"
     tools:context=".AddContact">
 
-    <include
-        layout="@layout/toolbar_add_contact"/>
+    <include layout="@layout/toolbar_add_contact" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,139 +18,118 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nice to see you,"
-                android:textColor="#9F9F9F"
-                android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/balooda_regular"/>
-
-            <TextView
-                android:id="@+id/addContact_nameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Parshant"
-                android:layout_marginLeft="10dp"
-                android:textSize="18dp"
-                android:textColor="@color/myOrange"
-                android:fontFamily="@font/balooda_semibold"/>
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                app:cardElevation="10dp"
-                app:cardCornerRadius="14dp">
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="10dp">
 
                 <LinearLayout
-                    android:gravity="center_horizontal"
-                    android:background="@color/myDarkLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="50dp"
-                    android:paddingVertical="30dp"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:background="@color/myDarkLight"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="50dp"
+                    android:paddingVertical="30dp">
 
                     <ImageView
                         android:id="@+id/addContact_qrImage"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/tempqr"/>
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:src="@drawable/tempqr" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Show QR to Connect"
-                        android:textColor="#9F9F9F"
-                        android:textSize="16dp"/>
-
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/balooda_semibold"
+                        android:textSize="16dp" />
 
 
                 </LinearLayout>
 
 
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/addContact_scanButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                app:cardCornerRadius="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/myDarkLight"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:foregroundGravity="center_vertical"
+                        android:src="@drawable/scanner" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="Scan"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/balooda_semibold"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
                 android:text="OR"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
                 android:textColor="#9F9F9F"
-                android:textStyle="bold"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addContact_scanButton"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
-                app:cardElevation="10dp"
-                app:cardCornerRadius="14dp">
-
-                <LinearLayout
-                    android:gravity="center_horizontal"
-                    android:background="@color/myDarkLight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="50dp"
-                    android:paddingVertical="30dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/scanner"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Show to Add"
-                        android:textColor="#9F9F9F"
-                        android:textSize="16dp"/>
-
-
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/addContact_sendDirectButton"
-                android:layout_marginBottom="30dp"
-                android:clickable="true"
-                app:contentPadding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal"
-                app:cardElevation="10dp"
-                app:cardBackgroundColor="@color/myDarkLight"
                 android:layout_marginHorizontal="70dp"
-                app:cardCornerRadius="20dp">
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@color/myDarkLight"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp"
+                app:contentPadding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Send Direct Invite"
                     android:layout_gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="16dp"
-                    android:fontFamily="@font/balooda_semibold"/>
+                    android:fontFamily="@font/balooda_semibold"
+                    android:text="Send Direct Invite"
+                    android:textColor="@color/myOrange"
+                    android:textSize="16dp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -160,7 +138,6 @@
 
 
     </ScrollView>
-
 
 
 </LinearLayout>

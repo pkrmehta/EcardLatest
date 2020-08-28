@@ -84,7 +84,6 @@
             app:cardUseCompatPadding="true">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/balooda_semibold"
@@ -94,20 +93,10 @@
                 android:text="Add contact"
                 android:textColor="@color/myOrange"
                 android:textSize="20dp" />
-
-
         </com.google.android.material.card.MaterialCardView>
-
-
     </LinearLayout>
-
-
-
-
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/myContact_RecyclerView"/>
