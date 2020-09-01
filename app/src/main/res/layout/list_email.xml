@@ -6,6 +6,7 @@
     android:layout_marginTop="10dp"
     android:paddingVertical="10dp"
     android:orientation="horizontal"
+    android:background="@drawable/ripple"
     android:weightSum="2">
 
     <TextView

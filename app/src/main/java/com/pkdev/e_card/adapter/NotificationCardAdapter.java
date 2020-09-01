@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
 import com.pkdev.e_card.R;
 import com.pkdev.e_card.model.NotificationCard;
 
@@ -38,7 +39,6 @@ public class NotificationCardAdapter extends RecyclerView.Adapter<NotificationCa
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
         NotificationCard notification = notificationCardList.get(position);
         holder.desc.setText(notification.getName() + " " +notification.getDesc());
-//        holder.time.setText(notification.getTime());
         holder.heading.setText(notification.getHeading());
     }
 

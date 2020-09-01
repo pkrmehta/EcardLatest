@@ -45,9 +45,15 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.TestView
         holder.linearAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editProfile = (EditProfile) mCtx;
-                if (editProfile.isEditable) {
-                    editProfile.showAddressDialog("edit", address, position);
+                try{
+                    editProfile = (EditProfile) mCtx;
+                    if (editProfile.isEditable) {
+                        editProfile.showAddressDialog("edit", address, position);
+                    }
+                }
+                catch (Exception e)
+                {
+
                 }
             }
         });

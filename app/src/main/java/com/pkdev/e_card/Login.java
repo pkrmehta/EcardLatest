@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.AuthCredential;
 
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -160,33 +163,63 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             final FirebaseUser user = mAuth.getCurrentUser();
-                            //Making a hashmap
-                            HashMap<String, String> userMap = new HashMap<>();
+                            final HashMap<String, String> userMap = new HashMap<>();
                             userMap.put("name", acct.getDisplayName());
                             userMap.put("email", acct.getEmail());
                             userMap.put("userid", user.getUid());
-                            userMap.put("image","default");
-                            userMap.put("title","Hey There! I am using ECard");
 
-                            mDatabase.collection("users").document(user.getUid()).set(userMap, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            mDatabase.collection("users").document(user.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        pd.dismiss();
-                                        Intent intent = new Intent(Login.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        pd.dismiss();
-                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        mDatabase.collection("users").document(user.getUid()).set(userMap, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                mGoogleSignInClient.signOut();
+                                                if (task.isSuccessful()) {
+                                                    pd.dismiss();
+                                                    Intent intent = new Intent(Login.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    pd.dismiss();
+                                                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            mGoogleSignInClient.signOut();
+                                                        }
+                                                    });
+                                                    // If sign in fails, display a message to the user.
+                                                    Toast.makeText(Login.this, "Database Failed.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         });
-                                        // If sign in fails, display a message to the user.
-                                        Toast.makeText(Login.this, "Database Failed.",
-                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        userMap.put("image","default");
+                                        userMap.put("title","Hey There! I am using ECard");
+                                        mDatabase.collection("users").document(user.getUid()).set(userMap, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    pd.dismiss();
+                                                    Intent intent = new Intent(Login.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    pd.dismiss();
+                                                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            mGoogleSignInClient.signOut();
+                                                        }
+                                                    });
+                                                    // If sign in fails, display a message to the user.
+                                                    Toast.makeText(Login.this, "Database Failed.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                     }
                                 }
                             });

@@ -2,14 +2,18 @@ package com.pkdev.e_card.queries;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,13 +22,19 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.pkdev.e_card.EditProfile;
+import com.pkdev.e_card.MyContacts;
+import com.pkdev.e_card.Notification;
+import com.pkdev.e_card.R;
 import com.pkdev.e_card.adapter.AddressAdapter;
 import com.pkdev.e_card.adapter.EmailAdapter;
+import com.pkdev.e_card.adapter.NotificationCardAdapter;
 import com.pkdev.e_card.adapter.PhoneAdapter;
 import com.pkdev.e_card.adapter.WebsiteAdapter;
 import com.pkdev.e_card.adapter.WorkAdapter;
 import com.pkdev.e_card.model.Address;
+import com.pkdev.e_card.model.Contact;
 import com.pkdev.e_card.model.Email;
+import com.pkdev.e_card.model.NotificationCard;
 import com.pkdev.e_card.model.Phone;
 import com.pkdev.e_card.model.Social;
 import com.pkdev.e_card.model.Website;
@@ -47,8 +57,29 @@ public class DatabaseQueries {
     public WorkAdapter workAdapter;
     public List<Website> websiteList = new ArrayList<>();
     public WebsiteAdapter websiteAdapter;
+    public List<NotificationCard> notificationCardList = new ArrayList<>();
+    public NotificationCardAdapter notificationCardAdapter;
 
-    public void getEmailList(final Context context, final RecyclerView mEmailList, String userId) {
+    public void getNotification(final Context context, final RecyclerView mNotificationList, String userId) {
+        db.collection("users").document(userId).collection("notifications").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    notificationCardList.clear();
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        NotificationCard notification = doc.toObject(NotificationCard.class);
+                        notificationCardList.add(notification);
+                    }
+                    notificationCardAdapter = new NotificationCardAdapter(context, notificationCardList);
+                    mNotificationList.setAdapter(notificationCardAdapter);
+                    Notification.pd.dismiss();
+                } else {
+                }
+            }
+        });
+    }
+
+    public void getEmailList(final Context context, final RecyclerView mEmailList, final String userId) {
         db.collection("users").document(userId).collection("email").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -64,9 +95,33 @@ public class DatabaseQueries {
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (EditProfile.isEditable) {
+                    return super.getSwipeDirs(recyclerView, holder);
+                }
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final int position = viewHolder.getAdapterPosition();
+                final Email email = emailList.get(position);
+                deleteEmail(userId, email.getId(), position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mEmailList);
     }
 
-    public void getWebsiteList(final Context context, final RecyclerView mWebsiteList, String userId) {
+    public void getWebsiteList(final Context context, final RecyclerView mWebsiteList, final String userId) {
         db.collection("users").document(userId).collection("website").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -82,6 +137,30 @@ public class DatabaseQueries {
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (EditProfile.isEditable) {
+                    return super.getSwipeDirs(recyclerView, holder);
+                }
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final int position = viewHolder.getAdapterPosition();
+                final Website website = websiteList.get(position);
+                deleteWebsite(userId, website.getId(), position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mWebsiteList);
     }
 
     public void getPhoneList(final Context context, final RecyclerView mPhoneList, final String userId) {
@@ -100,9 +179,33 @@ public class DatabaseQueries {
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (EditProfile.isEditable) {
+                    return super.getSwipeDirs(recyclerView, holder);
+                }
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final int position = viewHolder.getAdapterPosition();
+                final Phone phone = phoneList.get(position);
+                deletePhone(userId, phone.getId(), position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mPhoneList);
     }
 
-    public void getAddressList(final Context context, final RecyclerView mAddressList, String userId) {
+    public void getAddressList(final Context context, final RecyclerView mAddressList, final String userId) {
         db.collection("users").document(userId).collection("address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -120,9 +223,33 @@ public class DatabaseQueries {
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (EditProfile.isEditable) {
+                    return super.getSwipeDirs(recyclerView, holder);
+                }
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final int position = viewHolder.getAdapterPosition();
+                final Address address = addressList.get(position);
+                deleteAddress(userId, address.getId(), position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mAddressList);
     }
 
-    public void getWorkList(final Context context, final RecyclerView mWorkList, final String userId, final ProgressDialog pd) {
+    public void getWorkList(final Context context, final RecyclerView mWorkList, final String userId) {
         db.collection("users").document(userId).collection("job").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -134,12 +261,34 @@ public class DatabaseQueries {
                     }
                     workAdapter = new WorkAdapter(context, workList);
                     mWorkList.setAdapter(workAdapter);
-                    pd.dismiss();
                 } else {
-                    pd.dismiss();
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (EditProfile.isEditable) {
+                    return super.getSwipeDirs(recyclerView, holder);
+                }
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final int position = viewHolder.getAdapterPosition();
+                final Work work = workList.get(position);
+                deleteWork(userId, work.getId(), position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mWorkList);
     }
 
     public void addEmail(final Email email, final AlertDialog dialog) {
@@ -315,6 +464,56 @@ public class DatabaseQueries {
                 emailAdapter.notifyDataSetChanged();
                 dialog.cancel();
                 EditProfile.pd.dismiss();
+            }
+        });
+    }
+
+    public void deleteEmail(String userId, String id, final int position) {
+        db.collection("users").document(userId).collection("email").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                emailList.remove(position);
+                emailAdapter.notifyItemRemoved(position);
+            }
+        });
+    }
+
+    public void deletePhone(String userId, String id, final int position) {
+        db.collection("users").document(userId).collection("phone").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                phoneList.remove(position);
+                phoneAdapter.notifyItemRemoved(position);
+            }
+        });
+    }
+
+    public void deleteAddress(String userId, String id, final int position) {
+        db.collection("users").document(userId).collection("address").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                addressList.remove(position);
+                addressAdapter.notifyItemRemoved(position);
+            }
+        });
+    }
+
+    public void deleteWebsite(String userId, String id, final int position) {
+        db.collection("users").document(userId).collection("website").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                websiteList.remove(position);
+                websiteAdapter.notifyItemRemoved(position);
+            }
+        });
+    }
+
+    public void deleteWork(String userId, String id, final int position) {
+        db.collection("users").document(userId).collection("job").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                workList.remove(position);
+                workAdapter.notifyItemRemoved(position);
             }
         });
     }

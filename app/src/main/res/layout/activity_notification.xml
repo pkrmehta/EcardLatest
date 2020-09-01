@@ -11,12 +11,11 @@
     <include
         layout="@layout/toolbar_notification"/>
 
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notification_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbarStyle="outsideOverlay">
-
-    </view>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

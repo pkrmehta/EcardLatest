@@ -53,52 +53,62 @@
         android:layout_height="3dp"
         android:background="@color/toolbarBack"/>
 
-
-    <LinearLayout
-        android:id="@+id/mycontact_noContactMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/myContactRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/mainViewMyContacts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/balooda_regular"
-            android:gravity="center"
-            android:text="No contacts Available"
-            android:textColor="@color/colorAccent"
-            android:textSize="18dp" />
+            android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/myContact_addContactButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            app:cardBackgroundColor="@color/myDarkLight"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="10dp"
-            app:cardUseCompatPadding="true">
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/mycontact_noContactMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/balooda_semibold"
-                android:paddingHorizontal="40dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="4dp"
-                android:text="Add contact"
-                android:textColor="@color/myOrange"
-                android:textSize="20dp" />
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myContact_RecyclerView"/>
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/balooda_regular"
+                    android:gravity="center"
+                    android:text="No contacts Available"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/myContact_addContactButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="true"
+                    app:cardBackgroundColor="@color/myDarkLight"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="10dp"
+                    app:cardUseCompatPadding="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/balooda_semibold"
+                        android:paddingHorizontal="40dp"
+                        android:paddingTop="7dp"
+                        android:paddingBottom="4dp"
+                        android:text="Add contact"
+                        android:textColor="@color/myOrange"
+                        android:textSize="20dp" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:paddingHorizontal="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myContact_RecyclerView"/>
+
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -12,33 +12,41 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.pkdev.e_card.ContactDetail;
 import com.pkdev.e_card.MyContacts;
 import com.pkdev.e_card.R;
 import com.pkdev.e_card.model.Contact;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.TestViewHolder> {
 
     Context mCtx;
     List<Contact> contactList;
     MyContacts myContacts;
-
-    public ContactAdapter(Context mCtx, List<Contact> contactList) {
+    FirebaseFirestore db;
+    public ContactAdapter(Context mCtx, List<Contact> contactList, FirebaseFirestore db) {
         this.mCtx = mCtx;
         this.contactList = contactList;
         this.myContacts = (MyContacts) mCtx;
+        this.db = db;
     }
 
     @NonNull
     @Override
     public TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(mCtx).inflate(R.layout.list_my_contacts,
                 parent, false);
         TestViewHolder testViewHolder = new TestViewHolder(view);
@@ -49,12 +57,19 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.TestView
     public void onBindViewHolder(@NonNull final TestViewHolder holder, final int position) {
         final Contact contact = contactList.get(position);
 
+        db.collection("users").document(contact.getUserid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                holder.contactName.setText(documentSnapshot.get("name").toString());
+                holder.contactTitle.setText(documentSnapshot.get("title").toString());
+                Picasso.get().load(documentSnapshot.get("image").toString()).placeholder(R.drawable.profile).into(holder.contactImage);
+            }
+        });
+
         if (myContacts.pos == position) {
             holder.checkBox.setChecked(true);
             myContacts.pos = -1;
         }
-        holder.contactName.setText(contact.getName());
-        holder.contactTitle.setText(contact.getTitle());
 
         holder.contact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +114,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.TestView
     }
 
     class TestViewHolder extends RecyclerView.ViewHolder {
-        ImageView contactImage;
+        CircleImageView contactImage;
         TextView contactName, contactTitle;
         LinearLayout contact;
         RelativeLayout layoutCheck;
@@ -109,7 +124,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.TestView
             super(itemView);
             checkBox = (CheckBox) itemView.findViewById(R.id.list_check);
             layoutCheck = (RelativeLayout) itemView.findViewById(R.id.listContact_checkbox);
-            contactImage = (ImageView) itemView.findViewById(R.id.myContacts_listImageView);
+            contactImage = (CircleImageView) itemView.findViewById(R.id.myContacts_listImageView);
             contactName = (TextView) itemView.findViewById(R.id.myContacts_listNameTextView);
             contact = (LinearLayout) itemView.findViewById(R.id.myContact_List);
             contactTitle = (TextView) itemView.findViewById(R.id.myContacts_listDescTextView);

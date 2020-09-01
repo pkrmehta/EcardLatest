@@ -47,9 +47,14 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.TestViewHolder
         holder.linearWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editProfile = (EditProfile) mCtx;
-                if (editProfile.isEditable) {
-                    editProfile.showWorkDialog("edit", work, position);
+                try{
+                    editProfile = (EditProfile) mCtx;
+                    if (editProfile.isEditable) {
+                        editProfile.showWorkDialog("edit", work, position);
+                    }
+                }
+                catch (Exception e){
+
                 }
             }
         });
