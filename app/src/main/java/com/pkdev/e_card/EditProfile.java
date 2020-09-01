@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -25,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ import com.pkdev.e_card.model.Social;
 import com.pkdev.e_card.model.Website;
 import com.pkdev.e_card.model.Work;
 import com.pkdev.e_card.queries.DatabaseQueries;
+import com.pkdev.e_card.util.Common;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -86,13 +89,15 @@ public class EditProfile extends AppCompatActivity {
 
     String ADD = "add", EDIT = "edit";
     Toolbar toolbar;
-    public boolean isEditable = false;
+    public static boolean isEditable = false;
     private static final int GALLERY_PICK = 1;
 
-    static ImageButton buttonInstagram, buttonFacebook, buttonLinkedin, buttonTwitter, buttonSnapchat;
+    static ImageButton buttonInstagram, buttonFacebook, buttonLinkedin, buttonTwitter, buttonSnapchat, buttonWhatsapp;
     CircleImageView imageView;
 
-    static String instagramLink = "",facebookLink = "",linkedinLink = "",twitterLink = "",snapchatLink = "";
+    static String instagramLink = "", facebookLink = "", linkedinLink = "", twitterLink = "", snapchatLink = "", whatsappNo = "";
+    SwipeRefreshLayout editProfileRefresh;
+    ScrollView mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +117,21 @@ public class EditProfile extends AppCompatActivity {
         buttonTwitter = findViewById(R.id.editProfile_twitter);
         buttonLinkedin = findViewById(R.id.editProfile_linkedin);
         buttonSnapchat = findViewById(R.id.editProfile_snapchat);
+        buttonWhatsapp = findViewById(R.id.editProfile_whatsapp);
+
+        mainView = (ScrollView) findViewById(R.id.mainViewEditProfile);
+        editProfileRefresh = (SwipeRefreshLayout) findViewById(R.id.editProfileSwipeRefresh);
+
+        editProfileRefresh.setRefreshing(true);
+        mainView.setVisibility(View.GONE);
+
+        editProfileRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mainView.setVisibility(View.GONE);
+                showData();
+            }
+        });
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
@@ -123,25 +143,11 @@ public class EditProfile extends AppCompatActivity {
         pd.setTitle("Loading....");
         pd.setMessage("Please Wait");
 
+        document = db.collection("users").document(user_id);
+
         imageView = findViewById(R.id.editProfile_imageProfile);
         name = findViewById(R.id.editProfile_firstnameEditText);
         title = findViewById(R.id.editProfile_decriptionEditText);
-
-        document = db.collection("users").document(user_id);
-        document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                name.setText(task.getResult().get("name").toString());
-                title.setText(task.getResult().get("title").toString());
-                final String image = task.getResult().get("image").toString();
-
-                if (!image.equals("default")) {
-                    Picasso.get().load(image).placeholder(R.drawable.myinfo).into(imageView);
-                }
-            }
-        });
-
-        pd.show();
 
         mEmailList = (RecyclerView) findViewById(R.id.editprofile_emailAddRecyclerView);
         mAddressList = (RecyclerView) findViewById(R.id.editprofile_addressAddRecyclerView);
@@ -149,11 +155,7 @@ public class EditProfile extends AppCompatActivity {
         mWebsiteList = (RecyclerView) findViewById(R.id.editprofile_websiteAddRecyclerView);
         mPhoneList = (RecyclerView) findViewById(R.id.editProfile_phoneAddRecyclerView);
 
-        addDataToRecyclerVIew(mWebsiteList, WEBSITE);
-        addDataToRecyclerVIew(mPhoneList, PHONE);
-        addDataToRecyclerVIew(mAddressList, ADDRESS);
-        addDataToRecyclerVIew(mEmailList, EMAIL);
-        addDataToRecyclerVIew(mWorkList, JOB);
+        showData();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,73 +179,116 @@ public class EditProfile extends AppCompatActivity {
         buttonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Common.addInstagram(instagramLink,EditProfile.this);
             }
         });
 
-        setUpSocial();
+        buttonFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Common.addFacebook(facebookLink,EditProfile.this);
+            }
+        });
+
+        buttonTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Common.addTwitter(twitterLink,EditProfile.this);
+            }
+        });
+
+        buttonLinkedin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Common.addLinkedin(linkedinLink,EditProfile.this);
+            }
+        });
+
+        buttonWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Common.addWhatsapp(whatsappNo,EditProfile.this);
+            }
+        });
     }
 
-    public static void setUpSocial(){
+    private void showData(){
+        addDataToRecyclerVIew(mWebsiteList, WEBSITE);
+        addDataToRecyclerVIew(mPhoneList, PHONE);
+        addDataToRecyclerVIew(mAddressList, ADDRESS);
+        addDataToRecyclerVIew(mEmailList, EMAIL);
+        addDataToRecyclerVIew(mWorkList, JOB);
+        setUpSocial();
+        document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                name.setText(task.getResult().get("name").toString());
+                title.setText(task.getResult().get("title").toString());
+                final String image = task.getResult().get("image").toString();
+                if (!image.equals("default")) {
+                    Picasso.get().load(image).placeholder(R.drawable.myinfo).into(imageView);
+                }
+                editProfileRefresh.setRefreshing(false);
+                mainView.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    public static void setUpSocial() {
         document.collection("social").document("social_id").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     Social social = task.getResult().toObject(Social.class);
-                    if (social.getInstagram().length() > 0) {
-                        buttonInstagram.setVisibility(View.VISIBLE);
-                        instagramLink = social.getInstagram();
-                    }
-                    else {
-                        buttonInstagram.setVisibility(View.GONE);
-                    }
+                    if (social != null) {
+                        if (social.getInstagram().length() > 0) {
+                            buttonInstagram.setVisibility(View.VISIBLE);
+                            instagramLink = social.getInstagram();
+                        } else {
+                            buttonInstagram.setVisibility(View.GONE);
+                        }
 
-                    if (social.getFacebook().length() > 0) {
-                        buttonFacebook.setVisibility(View.VISIBLE);
-                        facebookLink = social.getFacebook();
-                    }
-                    else {
-                        buttonFacebook.setVisibility(View.GONE);
-                    }
+                        if (social.getFacebook().length() > 0) {
+                            buttonFacebook.setVisibility(View.VISIBLE);
+                            facebookLink = social.getFacebook();
+                        } else {
+                            buttonFacebook.setVisibility(View.GONE);
+                        }
 
-                    if (social.getLinkedin().length() > 0) {
-                        buttonLinkedin.setVisibility(View.VISIBLE);
-                        linkedinLink = social.getLinkedin();
-                    }
-                    else {
-                        buttonLinkedin.setVisibility(View.GONE);
-                    }
+                        if (social.getLinkedin().length() > 0) {
+                            buttonLinkedin.setVisibility(View.VISIBLE);
+                            linkedinLink = social.getLinkedin();
+                        } else {
+                            buttonLinkedin.setVisibility(View.GONE);
+                        }
 
-                    if (social.getTwitter().length() > 0) {
-                        buttonTwitter.setVisibility(View.VISIBLE);
-                        twitterLink = social.getTwitter();
-                    }
-                    else {
-                        buttonTwitter.setVisibility(View.GONE);
-                    }
+                        if (social.getTwitter().length() > 0) {
+                            buttonTwitter.setVisibility(View.VISIBLE);
+                            twitterLink = social.getTwitter();
+                        } else {
+                            buttonTwitter.setVisibility(View.GONE);
+                        }
 
-                    if (social.getSnapchat().length() > 0) {
-                        buttonSnapchat.setVisibility(View.VISIBLE);
-                        snapchatLink = social.getSnapchat();
-                    }
-                    else {
-                        buttonSnapchat.setVisibility(View.GONE);
+                        if (social.getSnapchat().length() > 0) {
+                            buttonSnapchat.setVisibility(View.VISIBLE);
+                            snapchatLink = social.getSnapchat();
+                        } else {
+                            buttonSnapchat.setVisibility(View.GONE);
+                        }
+
+                        if (social.getWhatsapp().length() > 0) {
+                            buttonWhatsapp.setVisibility(View.VISIBLE);
+                            whatsappNo = social.getWhatsapp();
+                        } else {
+                            buttonWhatsapp.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
         });
     }
 
-    private boolean isIntentAvailable(Context ctx, Intent intent) {
-        final PackageManager packageManager = ctx.getPackageManager();
-        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
-    }
-
     private void addDataToRecyclerVIew(RecyclerView recyclerView, String field) {
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
-
         if (field.equals(EMAIL)) {
             databaseQueries.getEmailList(this, mEmailList, user_id);
             setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandEmail), mEmailList);
@@ -253,7 +298,7 @@ public class EditProfile extends AppCompatActivity {
             setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWebsite), mWebsiteList);
             setUpAddWebsite();
         } else if (field.equals(JOB)) {
-            databaseQueries.getWorkList(this, mWorkList, user_id, pd);
+            databaseQueries.getWorkList(this, mWorkList, user_id);
             setUpExpandButton((ImageButton) findViewById(R.id.editProfile_expandWork), mWorkList);
             setUpAddWork();
         } else if (field.equals(ADDRESS)) {
@@ -595,6 +640,7 @@ public class EditProfile extends AppCompatActivity {
         final EditText editSnapchat = popPhoneLayout.findViewById(R.id.social_editSnapchat);
         final EditText editTwitter = popPhoneLayout.findViewById(R.id.social_editTwitter);
         final EditText editLinkedin = popPhoneLayout.findViewById(R.id.social_editLinkedin);
+        final EditText editWhatsapp = popPhoneLayout.findViewById(R.id.social_editWhatsapp);
 
         final TextView saveButton = popPhoneLayout.findViewById(R.id.popupSocial_saveButton);
         final TextView cancelButton = popPhoneLayout.findViewById(R.id.popupSocial_cancelButton);
@@ -604,7 +650,8 @@ public class EditProfile extends AppCompatActivity {
         editSnapchat.setText(snapchatLink);
         editFacebook.setText(facebookLink);
         editLinkedin.setText(linkedinLink);
-
+        editWhatsapp.setText(whatsappNo);
+        
         dialog.setView(popPhoneLayout);
         final AlertDialog alertDialog = dialog.show();
 
@@ -617,6 +664,7 @@ public class EditProfile extends AppCompatActivity {
                 social.setLinkedin(editLinkedin.getText().toString());
                 social.setSnapchat(editSnapchat.getText().toString());
                 social.setTwitter(editTwitter.getText().toString());
+                social.setWhatsapp(editWhatsapp.getText().toString());
 
                 pd.show();
                 if (mode.equals(ADD))
@@ -668,14 +716,16 @@ public class EditProfile extends AppCompatActivity {
         HashMap<String, String> hm = new HashMap<>();
         hm.put("name", updatedName);
         hm.put("title", updatedTitle);
-        pd.show();
+        mainView.setVisibility(View.GONE);
+        editProfileRefresh.setRefreshing(true);
         document.set(hm, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     name.setText(updatedName);
                     title.setText(updatedTitle);
-                    pd.dismiss();
+                    mainView.setVisibility(View.VISIBLE);
+                    editProfileRefresh.setRefreshing(false);
                     name.setEnabled(false);
                     title.setEnabled(false);
                 }
@@ -692,6 +742,7 @@ public class EditProfile extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isEditable = false;
                 finish();
             }
         });
@@ -776,5 +827,11 @@ public class EditProfile extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        isEditable = false;
+        super.onBackPressed();
     }
 }

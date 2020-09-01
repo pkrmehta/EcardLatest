@@ -18,8 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -49,9 +49,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/balooda_semibold"
                         android:text="Show QR to Connect"
                         android:textColor="@android:color/white"
-                        android:fontFamily="@font/balooda_semibold"
                         android:textSize="16dp" />
 
 
@@ -59,6 +59,7 @@
 
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/addContact_scanButton"
                 android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/myDarkLight"
+                    android:background="@drawable/ripple"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:paddingHorizontal="20dp"
@@ -89,12 +90,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="Scan"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="10dp"
+                        android:fontFamily="@font/balooda_semibold"
+                        android:text="Scan"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/balooda_semibold"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -116,20 +117,27 @@
                 android:layout_marginHorizontal="70dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
-                android:clickable="true"
                 app:cardBackgroundColor="@color/myDarkLight"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="10dp"
-                app:contentPadding="10dp">
+                >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/balooda_semibold"
-                    android:text="Send Direct Invite"
-                    android:textColor="@color/myOrange"
-                    android:textSize="16dp" />
+                    android:padding="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/balooda_semibold"
+                        android:text="Send Direct Invite"
+                        android:textColor="@color/myOrange"
+                        android:textSize="16dp" />
+                </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 

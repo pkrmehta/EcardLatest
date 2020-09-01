@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#222831</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#F4DE98</color>
+    <color name="colorAccent">#F1D681</color>
     <color name="myDark">#222831</color>
     <color name="myDarkLight">#393E46</color>
     <color name="toolbarBack">#171D25</color>
-    <color name="myOrange">#F4DE98</color>
+    <color name="myOrange">#F1D681</color>
     <color name="colorOnBackground">#C5C5C5</color>
     <color name="colorOnBackgroundSDark">#8E8E8E</color>
     <color name="colorControlHighlight">#40ffffff</color>

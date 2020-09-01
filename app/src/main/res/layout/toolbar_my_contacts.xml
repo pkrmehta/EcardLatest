@@ -17,13 +17,14 @@
             android:elevation="10dp"
             >
             <ImageButton
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
+                android:id="@+id/myContactsBackButton"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:scaleType="fitCenter"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/back"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/back" />
             <TextView
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"

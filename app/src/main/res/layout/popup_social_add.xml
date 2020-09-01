@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/myDark"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myDark"
     android:gravity="center_horizontal"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/balooda_semibold"
         android:text="Link Social Media"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:fontFamily="@font/balooda_semibold"/>
+        android:textSize="20dp" />
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="40dp"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -37,16 +37,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
             app:boxBackgroundMode="none"
-            app:helperTextTextAppearance="@color/colorAccent"
-            android:textColorHint="@color/colorOnBackground">
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/social_editInstagram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Instagram"
+                android:hint="www.instagram.com/"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="20dp"
@@ -60,16 +60,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="40dp"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -79,16 +79,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
             app:boxBackgroundMode="none"
-            app:helperTextTextAppearance="@color/colorAccent"
-            android:textColorHint="@color/colorOnBackground">
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/social_editFacebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="facebook"
+                android:hint="www.facebook.com/"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="20dp"
@@ -102,16 +102,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="40dp"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -121,16 +121,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
             app:boxBackgroundMode="none"
-            app:helperTextTextAppearance="@color/colorAccent"
-            android:textColorHint="@color/colorOnBackground">
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/social_editSnapchat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="snapchat"
+                android:hint="www.snapchat.com/add/"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="20dp"
@@ -144,16 +144,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="40dp"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -163,16 +163,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
             app:boxBackgroundMode="none"
-            app:helperTextTextAppearance="@color/colorAccent"
-            android:textColorHint="@color/colorOnBackground">
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/social_editLinkedin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="linkedin"
+                android:hint="www.linkedin.com/"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="20dp"
@@ -186,16 +186,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="50dp"
             android:layout_height="40dp"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -205,16 +205,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
             app:boxBackgroundMode="none"
-            app:helperTextTextAppearance="@color/colorAccent"
-            android:textColorHint="@color/colorOnBackground">
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/social_editTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="twitter"
+                android:hint="www.twitter.com/"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="20dp"
@@ -229,44 +229,85 @@
 
 
     <LinearLayout
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:weightSum="2"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/popupSocial_cancelButton"
-            android:layout_marginHorizontal="20dp"
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/whatsappc1" />
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/myinfo_layoutback"
-            android:text="Cancel"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:paddingVertical="3dp"
-            android:fontFamily="@font/balooda_semibold"
-            android:textSize="15dp"/>
-
-        <TextView
-            android:id="@+id/popupSocial_saveButton"
-            android:layout_marginHorizontal="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/myinfo_layoutback"
-            android:text="Save"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:paddingVertical="3dp"
-            android:fontFamily="@font/balooda_semibold"
-            android:textSize="15dp"/>
+            android:layout_marginLeft="10dp"
+            android:textColorHint="@color/colorOnBackground"
+            app:boxBackgroundMode="none"
+            app:helperTextTextAppearance="@color/colorAccent">
 
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/social_editWhatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="+91 - "
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorOnBackgroundSDark"
+                android:textSize="15dp"
+                app:boxBackgroundColor="@color/myDark" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/popupSocial_cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/myinfo_layoutback"
+            android:fontFamily="@font/balooda_semibold"
+            android:gravity="center"
+            android:paddingVertical="3dp"
+            android:text="Cancel"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/popupSocial_saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/myinfo_layoutback"
+            android:fontFamily="@font/balooda_semibold"
+            android:gravity="center"
+            android:paddingVertical="3dp"
+            android:text="Save"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

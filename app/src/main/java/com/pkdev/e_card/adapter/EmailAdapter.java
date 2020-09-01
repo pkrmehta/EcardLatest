@@ -45,9 +45,14 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.TestViewHold
         holder.linearEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editProfile = (EditProfile) mCtx;
-                if (editProfile.isEditable) {
-                    editProfile.showEmalDialog("edit", email, position);
+                try{
+                    editProfile = (EditProfile) mCtx;
+                    if (editProfile.isEditable) {
+                        editProfile.showEmalDialog("edit", email, position);
+                    }
+                }
+                catch (Exception e){
+
                 }
             }
         });
@@ -58,7 +63,7 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.TestViewHold
         return emailList.size();
     }
 
-    class TestViewHolder extends RecyclerView.ViewHolder
+    public class TestViewHolder extends RecyclerView.ViewHolder
     {
         TextView emailAddress,emailType;
         LinearLayout linearEmail;

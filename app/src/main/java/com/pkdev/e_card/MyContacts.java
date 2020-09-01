@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -24,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pkdev.e_card.adapter.ContactAdapter;
+import com.pkdev.e_card.adapter.EmailAdapter;
 import com.pkdev.e_card.model.Address;
 import com.pkdev.e_card.model.Contact;
 import com.pkdev.e_card.model.Email;
@@ -48,14 +52,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyContacts extends AppCompatActivity {
-
-
     RecyclerView mContactList;
     List<Contact> contactList;
     ContactAdapter contactAdapter;
     Toolbar toolbar;
     TextView toolbartxt;
     ImageButton backButton;
+    SwipeRefreshLayout myContactRefresh;
+    RelativeLayout mainLayout;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Contact> selectionList = new ArrayList<>();
     private int counter = 0;
@@ -83,12 +88,65 @@ public class MyContacts extends AppCompatActivity {
         toolbartxt = findViewById(R.id.mycontact_head);
         backButton = findViewById(R.id.mycontact_back);
 
+        mainLayout = (RelativeLayout) findViewById(R.id.mainViewMyContacts);
+        myContactRefresh = (SwipeRefreshLayout) findViewById(R.id.myContactRefresh);
+
+        myContactRefresh.setRefreshing(true);
+        mainLayout.setVisibility(View.GONE);
+
+        myContactRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mainLayout.setVisibility(View.GONE);
+                showData();
+            }
+        });
+
+        showData();
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+                final Contact contact = contactList.get(position);
+                db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("contacts").document(contact.getUserid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyContacts.this, "Deleted",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                contactList.remove(position);
+                contactAdapter.notifyItemRemoved(position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mContactList);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearActionMode();
+            }
+        });
+
+        findViewById(R.id.myContactsBackButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void showData(){
         //Populating RecyclerView With contactList
         mContactList = (RecyclerView) findViewById(R.id.myContact_RecyclerView);
         mContactList.setHasFixedSize(true);
         mContactList.setLayoutManager(new LinearLayoutManager(this));
         contactList = new ArrayList<>();
-        pd.show();
         db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("contacts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -97,30 +155,21 @@ public class MyContacts extends AppCompatActivity {
                         Contact contact = doc.toObject(Contact.class);
                         contactList.add(contact);
                     }
-                    contactAdapter = new ContactAdapter(MyContacts.this, contactList);
+                    contactAdapter = new ContactAdapter(MyContacts.this, contactList,db);
                     mContactList.setAdapter(contactAdapter);
                     if(contactList.size() < 1){
                         findViewById(R.id.mycontact_noContactMessage).setVisibility(View.VISIBLE);
                         mContactList.setVisibility(View.GONE);
                     }
-                    //If ProgressDialog is showing Dismiss it
-                    if (pd.isShowing()) {
-                        pd.dismiss();
-                    }
+                    myContactRefresh.setRefreshing(false);
+                    mainLayout.setVisibility(View.VISIBLE);
                 } else {
-                    pd.dismiss();
+                    myContactRefresh.setRefreshing(false);
+                    mainLayout.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearActionMode();
-            }
-        });
     }
-
     private void clearActionMode() {
         isActionMode = false;
         toolbartxt.setText("0 item selected");
@@ -148,12 +197,12 @@ public class MyContacts extends AppCompatActivity {
 
     private void updateToolbarText(int counter) {
         if (counter == 0) {
-            toolbartxt.setText("0 item selected");
+            toolbartxt.setText("0 Contacts Selected");
         }
         if (counter == 1) {
-            toolbartxt.setText("1 item selected");
+            toolbartxt.setText("1 Contacts Selected");
         } else {
-            toolbartxt.setText(counter + "  item selected");
+            toolbartxt.setText(counter + " Contacts Selected");
         }
     }
 
@@ -162,12 +211,10 @@ public class MyContacts extends AppCompatActivity {
             selectionList.add(contactList.get(position));
             counter++;
             updateToolbarText(counter);
-            Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_LONG).show();
         } else {
             selectionList.remove(contactList.get(position));
             counter--;
             updateToolbarText(counter);
-            Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_LONG).show();
         }
     }
 

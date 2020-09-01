@@ -45,9 +45,14 @@ public class WebsiteAdapter extends RecyclerView.Adapter<WebsiteAdapter.TestView
         holder.linearWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editProfile = (EditProfile) mCtx;
-                if (editProfile.isEditable) {
-                    editProfile.showWebsiteDialog("edit", website, position);
+                try{
+                    editProfile = (EditProfile) mCtx;
+                    if (editProfile.isEditable) {
+                        editProfile.showWebsiteDialog("edit", website, position);
+                    }
+                }
+                catch (Exception e){
+
                 }
             }
         });
